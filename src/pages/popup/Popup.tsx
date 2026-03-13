@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { useShortcut, ShortcutConfig } from './useShortcut';
 
 export default function Popup() {
-  const { shortcut, saveShortcut, loading } = useShortcut();
+  const { config, saveShortcut, toggleTrashIcon, toggleDirectDelete, loading } = useShortcut();
   const [isRecording, setIsRecording] = useState(false);
 
   const handleKeyDown = useCallback(
@@ -69,15 +69,36 @@ export default function Popup() {
         onClick={() => setIsRecording(!isRecording)}
       >
         <span className="font-mono text-lg font-semibold">
-          {isRecording ? 'Press any combo...' : formatShortcut(shortcut)}
+          {isRecording ? 'Press any combo...' : formatShortcut(config.shortcut)}
         </span>
       </div>
       
-      <p className="text-xs text-gray-500 mt-3 text-center">
+      <p className="text-xs text-gray-500 mt-3 text-center mb-4">
         {isRecording 
           ? 'Press the key combination you want to use. Press Esc to cancel.' 
           : 'Click the box above to record a new shortcut.'}
       </p>
+
+      <div className="border-t pt-4 flex flex-col gap-3">
+        <label className="flex items-center space-x-2 cursor-pointer select-none">
+          <input 
+            type="checkbox" 
+            checked={config.enableTrashIcon} 
+            onChange={toggleTrashIcon}
+            className="w-4 h-4 rounded text-blue-500 focus:ring-blue-500"
+          />
+          <span className="text-sm font-medium text-gray-700">Enable Hover Trash Icon</span>
+        </label>
+        <label className="flex items-center space-x-2 cursor-pointer select-none">
+          <input 
+            type="checkbox" 
+            checked={config.directDelete} 
+            onChange={toggleDirectDelete}
+            className="w-4 h-4 rounded text-blue-500 focus:ring-blue-500"
+          />
+          <span className="text-sm font-medium text-gray-700">Direct Delete (No Warning)</span>
+        </label>
+      </div>
     </div>
   );
 }
