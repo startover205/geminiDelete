@@ -56,8 +56,8 @@ export default function Popup() {
   if (loading) return null;
 
   return (
-    <div className="w-64 p-4 text-gray-800 bg-white shadow-md">
-      <h2 className="text-lg font-bold mb-4 text-center">Gemini Quick Delete</h2>
+    <div className="p-5 text-gray-800 bg-white flex flex-col justify-center h-full">
+      <h2 className="text-xl font-bold mb-4 text-center">Gemini Quick Delete</h2>
       <p className="text-sm text-gray-600 mb-2">Current Shortcut:</p>
       
       <div 

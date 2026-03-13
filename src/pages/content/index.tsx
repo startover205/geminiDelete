@@ -66,7 +66,7 @@ async function triggerDeletionFlow() {
   if (activeChatMenuBtn) {
       (activeChatMenuBtn as HTMLElement).click();
   } else {
-      console.warn("Gemini Shortcut: Could not find active conversation.");
+      console.log("Gemini Shortcut: Could not find active conversation (likely a new chat).");
       return;
   }
 
@@ -82,7 +82,7 @@ async function triggerDeletionFlow() {
           deleteBtn.click();
           console.log("Gemini Shortcut: Delete dialog requested. Waiting for user's second press to confirm.");
       } else {
-          console.warn("Gemini Shortcut: Could not find 'Delete' menu item.");
+          console.log("Gemini Shortcut: Could not find 'Delete' menu item.");
       }
   }, 300);
 }
