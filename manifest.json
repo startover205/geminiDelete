@@ -5,11 +5,11 @@
   "action": {
     "default_popup": "src/pages/popup/index.html",
     "default_icon": {
-      "32": "icon-32.png"
+      "32": "src/assets/img/icon-32.png"
     }
   },
   "icons": {
-    "128": "icon-128.png"
+    "128": "src/assets/img/icon-128.png"
   },
   "permissions": [
     "storage"
@@ -22,15 +22,6 @@
       "js": [
         "src/pages/content/index.tsx"
       ]
-    }
-  ],
-  "web_accessible_resources": [
-    {
-      "resources": [
-        "icon-128.png",
-        "icon-32.png"
-      ],
-      "matches": []
     }
   ]
 }

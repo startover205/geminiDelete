@@ -1,5 +1,19 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useShortcut, ShortcutConfig } from './useShortcut';
+import {
+  ChevronRightIcon,
+  CoffeeIcon,
+  DeleteSweepIcon,
+  EditIcon,
+  FeedbackIcon,
+  KeyboardIcon,
+  ResetIcon,
+  SettingsIcon,
+  ShortcutIcon,
+  SparklesIcon,
+  StarIcon,
+  TerminalIcon,
+} from './icons';
 
 export default function Popup() {
   const { config, saveShortcut, toggleTrashIcon, toggleDirectDelete, loading } = useShortcut();
@@ -61,7 +75,7 @@ export default function Popup() {
       <header className="sticky top-0 z-10 flex items-center justify-between border-b border-slate-800 bg-background-dark/80 backdrop-blur-md px-4 py-3">
         <div className="flex items-center gap-3">
           <div className="flex items-center justify-center size-8 rounded-lg bg-primary/10 text-primary">
-            <span className="material-symbols-outlined text-[20px]">auto_awesome</span>
+            <SparklesIcon className="size-5" />
           </div>
           <div>
             <h1 className="text-sm font-bold leading-none tracking-tight">Gemini Quick Delete</h1>
@@ -69,7 +83,7 @@ export default function Popup() {
           </div>
         </div>
         <button className="flex items-center justify-center size-8 rounded-lg hover:bg-slate-800 transition-colors text-slate-500 cursor-default">
-          <span className="material-symbols-outlined text-[20px]">settings</span>
+          <SettingsIcon className="size-5" />
         </button>
       </header>
 
@@ -81,7 +95,7 @@ export default function Popup() {
             {/* Toggle 1: Double tap confirm (inverse of directDelete) */}
             <div className="flex items-center justify-between p-3 rounded-xl glass-panel">
               <div className="flex items-center gap-3">
-                <span className="material-symbols-outlined text-primary text-[20px]">keyboard</span>
+                <KeyboardIcon className="size-5 text-primary" />
                 <span className="text-xs font-medium">Double-tap confirm</span>
               </div>
               <label className="relative inline-flex items-center cursor-pointer">
@@ -101,13 +115,13 @@ export default function Popup() {
               onClick={() => setIsRecording(!isRecording)}
             >
               <div className="flex items-center gap-3">
-                <span className="material-symbols-outlined text-primary text-[20px]">settings_input_antenna</span>
+                <ShortcutIcon className="size-5 text-primary" />
                 <span className="text-xs font-medium">Custom Shortcut</span>
               </div>
               <div className="flex items-center gap-2">
                 <div className="px-2 py-1 rounded bg-slate-700 border border-slate-600 text-[10px] font-mono text-slate-300 shadow-sm flex items-center gap-2">
                   <span>{isRecording ? 'Listening... ESC to cancel' : formatShortcut(config.shortcut)}</span>
-                  <span className={`material-symbols-outlined text-[12px] opacity-60 ${isRecording ? 'opacity-100' : 'group-hover:opacity-100'}`}>edit</span>
+                  <EditIcon className={`size-3 opacity-60 ${isRecording ? 'opacity-100' : 'group-hover:opacity-100'}`} />
                 </div>
               </div>
             </div>
@@ -115,7 +129,7 @@ export default function Popup() {
             {/* Toggle 2: Show chat list delete icon */}
             <div className="flex items-center justify-between p-3 rounded-xl glass-panel">
               <div className="flex items-center gap-3">
-                <span className="material-symbols-outlined text-primary text-[20px]">delete_sweep</span>
+                <DeleteSweepIcon className="size-5 text-primary" />
                 <span className="text-xs font-medium">Display chat list delete icon</span>
               </div>
               <label className="relative inline-flex items-center cursor-pointer">
@@ -136,15 +150,15 @@ export default function Popup() {
           <h3 className="px-2 pb-2 text-[11px] font-bold text-slate-500 uppercase tracking-wider">Support & Community</h3>
           <div className="grid grid-cols-3 gap-2">
             <button className="flex flex-col items-center justify-center gap-1.5 p-3 rounded-xl bg-primary text-white hover:bg-primary/90 transition-colors shadow-sm cursor-default">
-              <span className="material-symbols-outlined text-[18px]">grade</span>
+              <StarIcon className="size-[18px]" />
               <span className="text-[10px] font-bold uppercase">Rate</span>
             </button>
             <button className="flex flex-col items-center justify-center gap-1.5 p-3 rounded-xl glass-panel hover:bg-slate-800 transition-colors cursor-default">
-              <span className="material-symbols-outlined text-[18px]">feedback</span>
+              <FeedbackIcon className="size-[18px]" />
               <span className="text-[10px] font-bold uppercase">Feedback</span>
             </button>
             <button className="flex flex-col items-center justify-center gap-1.5 p-3 rounded-xl bg-amber-400 text-amber-950 hover:bg-amber-500 transition-colors cursor-default">
-              <span className="material-symbols-outlined text-[18px]">coffee</span>
+              <CoffeeIcon className="size-[18px]" />
               <span className="text-[10px] font-bold uppercase">Coffee</span>
             </button>
           </div>
@@ -156,7 +170,7 @@ export default function Popup() {
           <div className="flex flex-col gap-1">
             <div className="flex items-center justify-between p-3 rounded-xl glass-panel opacity-50">
               <div className="flex items-center gap-3">
-                <span className="material-symbols-outlined text-slate-400 text-[20px]">terminal</span>
+                <TerminalIcon className="size-5 text-slate-400" />
                 <span className="text-xs font-medium">Debug Console</span>
               </div>
               <label className="relative inline-flex items-center cursor-default">
@@ -169,10 +183,10 @@ export default function Popup() {
               className="flex items-center justify-between p-3 rounded-xl glass-panel hover:bg-red-500/10 transition-colors group cursor-default opacity-50"
             >
               <div className="flex items-center gap-3">
-                <span className="material-symbols-outlined text-red-500 text-[20px]">restart_alt</span>
+                <ResetIcon className="size-5 text-red-500" />
                 <span className="text-xs font-medium group-hover:text-red-500">Reset All Data</span>
               </div>
-              <span className="material-symbols-outlined text-slate-500 text-[16px]">chevron_right</span>
+              <ChevronRightIcon className="size-4 text-slate-500" />
             </button>
           </div>
         </div>
