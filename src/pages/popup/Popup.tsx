@@ -1,18 +1,14 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useShortcut, ShortcutConfig } from './useShortcut';
 import {
-  ChevronRightIcon,
   CoffeeIcon,
   DeleteSweepIcon,
   EditIcon,
   FeedbackIcon,
   KeyboardIcon,
-  ResetIcon,
-  SettingsIcon,
   ShortcutIcon,
   SparklesIcon,
   StarIcon,
-  TerminalIcon,
 } from './icons';
 
 export default function Popup() {
@@ -72,7 +68,7 @@ export default function Popup() {
   return (
     <div className="relative flex flex-col w-[400px] h-auto max-h-[600px] mx-auto overflow-y-auto custom-scrollbar bg-background-dark">
       {/* Header */}
-      <header className="sticky top-0 z-10 flex items-center justify-between border-b border-slate-800 bg-background-dark/80 backdrop-blur-md px-4 py-3">
+      <header className="sticky top-0 z-10 flex items-center border-b border-slate-800 bg-background-dark/80 backdrop-blur-md px-4 py-3">
         <div className="flex items-center gap-3">
           <div className="flex items-center justify-center size-8 rounded-lg bg-primary/10 text-primary">
             <SparklesIcon className="size-5" />
@@ -82,21 +78,23 @@ export default function Popup() {
             <p className="text-[10px] text-slate-400 mt-1 font-medium">V1.0.0 Free Edition</p>
           </div>
         </div>
-        <button className="flex items-center justify-center size-8 rounded-lg hover:bg-slate-800 transition-colors text-slate-500 cursor-default">
-          <SettingsIcon className="size-5" />
-        </button>
       </header>
 
-      <main className="flex flex-col gap-1 p-3">
+      <main className="flex flex-col gap-1 p-3" aria-label="Extension settings">
         {/* Section 1: PREFERENCES */}
-        <div className="mb-4">
-          <h3 className="px-2 pb-2 text-[11px] font-bold text-slate-500 uppercase tracking-wider">Preferences</h3>
+        <section className="mb-4" aria-labelledby="preferences-heading">
+          <h2 id="preferences-heading" className="px-2 pb-2 text-[11px] font-bold text-slate-500 uppercase tracking-wider">Preferences</h2>
           <div className="flex flex-col gap-1">
             {/* Toggle 1: Double tap confirm (inverse of directDelete) */}
             <div className="flex items-center justify-between p-3 rounded-xl glass-panel">
-              <div className="flex items-center gap-3">
-                <KeyboardIcon className="size-5 text-primary" />
-                <span className="text-xs font-medium">Double-tap confirm</span>
+              <div className="flex items-start gap-3 pr-4">
+                <KeyboardIcon className="size-5 text-primary mt-0.5 shrink-0" />
+                <div>
+                  <p className="text-xs font-medium">Double-tap confirm</p>
+                  <p id="direct-delete-description" className="mt-1 text-[11px] leading-relaxed text-slate-400">
+                    Require a second key press before deleting a conversation to reduce accidental removals.
+                  </p>
+                </div>
               </div>
               <label className="relative inline-flex items-center cursor-pointer">
                 <input 
@@ -104,19 +102,29 @@ export default function Popup() {
                   className="sr-only peer" 
                   checked={!config.directDelete}
                   onChange={toggleDirectDelete}
+                  aria-describedby="direct-delete-description"
+                  aria-label="Enable double-tap confirmation before delete"
                 />
                 <div className="w-9 h-5 bg-slate-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-primary"></div>
               </label>
             </div>
 
             {/* Custom Shortcut */}
-            <div 
-              className={`flex items-center justify-between p-3 rounded-xl glass-panel group cursor-pointer transition-colors ${isRecording ? 'bg-primary/10 ring-1 ring-primary' : 'hover:bg-slate-800'}`}
+            <button
+              type="button"
+              aria-pressed={isRecording}
+              aria-describedby="shortcut-description"
+              className={`flex w-full items-center justify-between p-3 rounded-xl glass-panel group text-left cursor-pointer transition-colors ${isRecording ? 'bg-primary/10 ring-1 ring-primary' : 'hover:bg-slate-800'}`}
               onClick={() => setIsRecording(!isRecording)}
             >
-              <div className="flex items-center gap-3">
-                <ShortcutIcon className="size-5 text-primary" />
-                <span className="text-xs font-medium">Custom Shortcut</span>
+              <div className="flex items-start gap-3 pr-4">
+                <ShortcutIcon className="size-5 text-primary mt-0.5 shrink-0" />
+                <div>
+                  <p className="text-xs font-medium">Custom Shortcut</p>
+                  <p id="shortcut-description" className="mt-1 text-[11px] leading-relaxed text-slate-400">
+                    Choose the keyboard shortcut that triggers quick delete while browsing Gemini.
+                  </p>
+                </div>
               </div>
               <div className="flex items-center gap-2">
                 <div className="px-2 py-1 rounded bg-slate-700 border border-slate-600 text-[10px] font-mono text-slate-300 shadow-sm flex items-center gap-2">
@@ -124,13 +132,18 @@ export default function Popup() {
                   <EditIcon className={`size-3 opacity-60 ${isRecording ? 'opacity-100' : 'group-hover:opacity-100'}`} />
                 </div>
               </div>
-            </div>
+            </button>
 
             {/* Toggle 2: Show chat list delete icon */}
             <div className="flex items-center justify-between p-3 rounded-xl glass-panel">
-              <div className="flex items-center gap-3">
-                <DeleteSweepIcon className="size-5 text-primary" />
-                <span className="text-xs font-medium">Display chat list delete icon</span>
+              <div className="flex items-start gap-3 pr-4">
+                <DeleteSweepIcon className="size-5 text-primary mt-0.5 shrink-0" />
+                <div>
+                  <p className="text-xs font-medium">Display chat list delete icon</p>
+                  <p id="trash-icon-description" className="mt-1 text-[11px] leading-relaxed text-slate-400">
+                    Show a visible delete shortcut in the Gemini conversation list for faster cleanup.
+                  </p>
+                </div>
               </div>
               <label className="relative inline-flex items-center cursor-pointer">
                 <input 
@@ -138,58 +151,51 @@ export default function Popup() {
                   className="sr-only peer" 
                   checked={config.enableTrashIcon}
                   onChange={toggleTrashIcon}
+                  aria-describedby="trash-icon-description"
+                  aria-label="Show delete icon in Gemini chat list"
                 />
                 <div className="w-9 h-5 bg-slate-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-primary"></div>
               </label>
             </div>
           </div>
-        </div>
+        </section>
 
         {/* Section 2: SUPPORT & COMMUNITY */}
-        <div className="mb-4">
-          <h3 className="px-2 pb-2 text-[11px] font-bold text-slate-500 uppercase tracking-wider">Support & Community</h3>
+        <section className="mb-2" aria-labelledby="support-heading">
+          <h2 id="support-heading" className="px-2 pb-2 text-[11px] font-bold text-slate-500 uppercase tracking-wider">Support & Community</h2>
           <div className="grid grid-cols-3 gap-2">
-            <button className="flex flex-col items-center justify-center gap-1.5 p-3 rounded-xl bg-primary text-white hover:bg-primary/90 transition-colors shadow-sm cursor-default">
+            <button
+              type="button"
+              disabled
+              aria-label="Rate link coming soon until the extension is published"
+              className="flex flex-col items-center justify-center gap-1.5 p-3 rounded-xl bg-primary/50 text-white/80 transition-colors shadow-sm cursor-not-allowed opacity-70"
+            >
               <StarIcon className="size-[18px]" />
               <span className="text-[10px] font-bold uppercase">Rate</span>
+              <span className="text-[9px] font-medium normal-case opacity-80">Coming soon</span>
             </button>
-            <button className="flex flex-col items-center justify-center gap-1.5 p-3 rounded-xl glass-panel hover:bg-slate-800 transition-colors cursor-default">
+            <a
+              href="https://github.com/startover205/geminiDelete/issues"
+              target="_blank"
+              rel="noreferrer"
+              className="flex flex-col items-center justify-center gap-1.5 p-3 rounded-xl glass-panel hover:bg-slate-800 transition-colors"
+              aria-label="Open GitHub issues to leave feedback"
+            >
               <FeedbackIcon className="size-[18px]" />
               <span className="text-[10px] font-bold uppercase">Feedback</span>
-            </button>
-            <button className="flex flex-col items-center justify-center gap-1.5 p-3 rounded-xl bg-amber-400 text-amber-950 hover:bg-amber-500 transition-colors cursor-default">
+            </a>
+            <a
+              href="https://startover205.github.io/coffeePage/?app=gemini_delete"
+              target="_blank"
+              rel="noreferrer"
+              className="flex flex-col items-center justify-center gap-1.5 p-3 rounded-xl bg-amber-400 text-amber-950 hover:bg-amber-500 transition-colors"
+              aria-label="Open support page to buy coffee"
+            >
               <CoffeeIcon className="size-[18px]" />
               <span className="text-[10px] font-bold uppercase">Coffee</span>
-            </button>
+            </a>
           </div>
-        </div>
-
-        {/* Section 3: ADVANCED */}
-        <div>
-          <h3 className="px-2 pb-2 text-[11px] font-bold text-slate-500 uppercase tracking-wider">Advanced</h3>
-          <div className="flex flex-col gap-1">
-            <div className="flex items-center justify-between p-3 rounded-xl glass-panel opacity-50">
-              <div className="flex items-center gap-3">
-                <TerminalIcon className="size-5 text-slate-400" />
-                <span className="text-xs font-medium">Debug Console</span>
-              </div>
-              <label className="relative inline-flex items-center cursor-default">
-                <input type="checkbox" className="sr-only peer" disabled />
-                <div className="w-9 h-5 bg-slate-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-primary"></div>
-              </label>
-            </div>
-            
-            <button 
-              className="flex items-center justify-between p-3 rounded-xl glass-panel hover:bg-red-500/10 transition-colors group cursor-default opacity-50"
-            >
-              <div className="flex items-center gap-3">
-                <ResetIcon className="size-5 text-red-500" />
-                <span className="text-xs font-medium group-hover:text-red-500">Reset All Data</span>
-              </div>
-              <ChevronRightIcon className="size-4 text-slate-500" />
-            </button>
-          </div>
-        </div>
+        </section>
       </main>
 
       {/* Footer */}
@@ -198,7 +204,7 @@ export default function Popup() {
           <div className="flex items-center gap-4 text-[11px] font-medium text-slate-400">
             <a href="#" className="hover:text-primary transition-colors cursor-default">Privacy Policy</a>
             <span className="text-slate-700">•</span>
-            <a href="https://github.com/JohnBra/vite-web-extension" target="_blank" rel="noreferrer" className="flex items-center gap-1 hover:text-primary transition-colors">
+            <a href="https://github.com/startover205/geminiDelete" target="_blank" rel="noreferrer" className="flex items-center gap-1 hover:text-primary transition-colors">
               <span className="text-[14px] leading-none">★</span> GitHub
             </a>
           </div>
