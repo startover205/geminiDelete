@@ -96,12 +96,35 @@ function closeDeletePopover() {
   }
 }
 
+function getConversationRowElement(menuBtn: HTMLElement): HTMLElement | null {
+  let candidate = menuBtn.parentElement;
+  let depth = 0;
+
+  while (candidate && depth < 5) {
+    // If the candidate contains a standard link or selected item, it's likely the row
+    if (candidate.querySelector('a, [aria-selected], [role="link"]') && candidate !== menuBtn.parentElement) {
+      return candidate;
+    }
+    
+    // Some Gemini UI variations might not use anchor tags. Check if candidate looks like a list item container.
+    if (candidate.tagName === 'LI' || candidate.getAttribute('role') === 'listitem' || candidate.getAttribute('role') === 'row') {
+      return candidate;
+    }
+    
+    candidate = candidate.parentElement;
+    depth++;
+  }
+
+  // Fallback: 2nd level up is typically the row in a flex layout for these menus
+  return menuBtn.parentElement?.parentElement ?? menuBtn.parentElement;
+}
+
 function showDeletePopover(anchorEl: HTMLElement, menuBtn: HTMLElement) {
   closeDeletePopover();
 
   const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const rowEl = anchorEl.closest('.gqd-convo-container') as HTMLElement | null;
+  const rowEl = getConversationRowElement(menuBtn);
   const popover = document.createElement('button');
   popover.className = 'gqd-delete-popover';
   popover.type = 'button';
@@ -321,7 +344,7 @@ function createTrashIcon(menuBtn: HTMLElement) {
   wrapper.style.borderRadius = '10px';
   wrapper.style.border = 'none';
   wrapper.style.backgroundColor = 'transparent';
-  wrapper.style.color = '#444746';
+  wrapper.style.color = '#8ab4f8';
   wrapper.style.cursor = 'pointer';
   wrapper.style.padding = '6px';
   wrapper.style.margin = '0 4px 0 0'; // 4px margin to the right (between trash and 3-dots)
@@ -354,14 +377,14 @@ function createTrashIcon(menuBtn: HTMLElement) {
   wrapper.addEventListener('mouseenter', () => {
     // Dark mode check via simple media query in JS
     const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    wrapper.style.backgroundColor = isDark ? 'rgba(242, 184, 181, 0.12)' : 'rgba(217, 48, 37, 0.08)';
-    wrapper.style.color = isDark ? '#f2b8b5' : '#b3261e';
+    wrapper.style.backgroundColor = isDark ? 'rgba(220, 54, 46, 0.18)' : 'rgba(197, 34, 31, 0.14)';
+    wrapper.style.color = isDark ? '#ff8a80' : '#b3261e';
   });
   
   wrapper.addEventListener('mouseleave', () => {
     const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
     wrapper.style.backgroundColor = 'transparent';
-    wrapper.style.color = isDark ? '#c4c7c5' : '#444746';
+    wrapper.style.color = isDark ? '#8ab4f8' : '#5f6368';
   });
 
   wrapper.addEventListener('focus', () => {
@@ -389,6 +412,7 @@ function initTrashIconsObserver() {
     menuButtons.forEach(btn => {
       btn.classList.add('gqd-processed');
       const container = btn.parentElement;
+      const hoverTarget = getConversationRowElement(btn as HTMLElement) ?? container;
       if (container) {
         container.classList.add('gqd-convo-container');
         // Prevent duplicate icons
@@ -399,16 +423,16 @@ function initTrashIconsObserver() {
           container.insertBefore(trashBtn, btn);
           
           // Manage hover state via JS to absolutely avoid CSS layout side effects
-          container.addEventListener('mouseenter', () => {
+          hoverTarget?.addEventListener('mouseenter', () => {
             if (currentConfig.enableTrashIcon) {
               trashBtn.style.display = 'flex';
               // Keep text color in sync with system theme when showing
               const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-              trashBtn.style.color = isDark ? '#c4c7c5' : '#444746';
+              trashBtn.style.color = isDark ? '#8ab4f8' : '#5f6368';
             }
           });
           
-          container.addEventListener('mouseleave', () => {
+          hoverTarget?.addEventListener('mouseleave', () => {
             trashBtn.style.display = 'none';
           });
         }
