@@ -28,6 +28,8 @@ const DEFAULT_CONFIG: AppConfig = {
 };
 
 let currentConfig: AppConfig = DEFAULT_CONFIG;
+let activeDeletePopover: HTMLElement | null = null;
+let activeDeletePopoverCleanup: (() => void) | null = null;
 
 function matchesShortcut(e: KeyboardEvent, config: ShortcutConfig): boolean {
   return (
@@ -86,6 +88,128 @@ function performDeleteSequence(menuBtn: HTMLElement, isDirectDelete: boolean) {
           document.body.click(); 
       }
   }, 300);
+}
+
+function closeDeletePopover() {
+  if (activeDeletePopoverCleanup) {
+    activeDeletePopoverCleanup();
+  }
+}
+
+function showDeletePopover(anchorEl: HTMLElement, menuBtn: HTMLElement) {
+  closeDeletePopover();
+
+  const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const rowEl = anchorEl.closest('.gqd-convo-container') as HTMLElement | null;
+  const popover = document.createElement('button');
+  popover.className = 'gqd-delete-popover';
+  popover.type = 'button';
+  popover.textContent = '確認刪除';
+  popover.setAttribute('role', 'dialog');
+  popover.setAttribute('aria-modal', 'false');
+  popover.setAttribute('aria-label', 'Delete conversation confirmation');
+  popover.style.position = 'fixed';
+  popover.style.zIndex = '2147483647';
+  popover.style.display = 'flex';
+  popover.style.alignItems = 'center';
+  popover.style.justifyContent = 'center';
+  popover.style.minWidth = '112px';
+  popover.style.minHeight = '36px';
+  popover.style.padding = '0 18px';
+  popover.style.borderRadius = '999px';
+  popover.style.border = isDark ? '1px solid #dc362e' : '1px solid #b3261e';
+  popover.style.background = isDark ? '#dc362e' : '#c5221f';
+  popover.style.color = '#ffffff';
+  popover.style.fontFamily = 'inherit';
+  popover.style.fontSize = '14px';
+  popover.style.fontWeight = '600';
+  popover.style.cursor = 'pointer';
+  popover.style.whiteSpace = 'nowrap';
+  popover.style.boxShadow = isDark
+    ? '0 10px 24px rgba(0, 0, 0, 0.34)'
+    : '0 10px 24px rgba(60, 64, 67, 0.18)';
+  popover.style.transformOrigin = 'left center';
+  if (!prefersReducedMotion) {
+    popover.style.transition = 'opacity 160ms ease, transform 160ms ease';
+    popover.style.opacity = '0';
+    popover.style.transform = 'translateX(-4px) scale(0.98)';
+  }
+  popover.style.outline = 'none';
+  popover.addEventListener('mouseenter', () => {
+    popover.style.background = isDark ? '#f04f46' : '#dc362e';
+    popover.style.borderColor = isDark ? '#f04f46' : '#dc362e';
+  });
+  popover.addEventListener('mouseleave', () => {
+    popover.style.background = isDark ? '#dc362e' : '#c5221f';
+    popover.style.borderColor = isDark ? '#dc362e' : '#b3261e';
+  });
+  popover.addEventListener('focus', () => {
+    popover.style.boxShadow = isDark
+      ? '0 0 0 3px rgba(138, 180, 248, 0.55), 0 10px 24px rgba(0, 0, 0, 0.34)'
+      : '0 0 0 3px rgba(26, 115, 232, 0.28), 0 10px 24px rgba(60, 64, 67, 0.18)';
+  });
+  popover.addEventListener('blur', () => {
+    popover.style.boxShadow = isDark
+      ? '0 10px 24px rgba(0, 0, 0, 0.34)'
+      : '0 10px 24px rgba(60, 64, 67, 0.18)';
+  });
+
+  popover.addEventListener('click', (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    closeDeletePopover();
+    performDeleteSequence(menuBtn, true);
+  });
+  document.body.appendChild(popover);
+
+  const referenceRect = (rowEl ?? anchorEl).getBoundingClientRect();
+  const popoverRect = popover.getBoundingClientRect();
+  const spacing = 12;
+  let left = referenceRect.right + spacing;
+  if (left + popoverRect.width > window.innerWidth - 8) {
+    left = referenceRect.left - popoverRect.width - spacing;
+  }
+  left = Math.max(8, left);
+  const top = Math.min(
+    Math.max(8, referenceRect.top + (referenceRect.height - popoverRect.height) / 2),
+    window.innerHeight - popoverRect.height - 8,
+  );
+
+  popover.style.left = `${left}px`;
+  popover.style.top = `${top}px`;
+  if (!prefersReducedMotion) {
+    requestAnimationFrame(() => {
+      popover.style.opacity = '1';
+      popover.style.transform = 'translateX(0) scale(1)';
+    });
+  }
+  requestAnimationFrame(() => popover.focus());
+
+  const handlePointerDown = (event: MouseEvent) => {
+    const target = event.target as Node | null;
+    if (!target) return;
+    if (popover.contains(target) || anchorEl.contains(target)) return;
+    closeDeletePopover();
+  };
+
+  const handleKeyDown = (event: KeyboardEvent) => {
+    if (event.key === 'Escape') {
+      closeDeletePopover();
+    }
+  };
+
+  activeDeletePopover = popover;
+  activeDeletePopoverCleanup = () => {
+    document.removeEventListener('mousedown', handlePointerDown, true);
+    document.removeEventListener('keydown', handleKeyDown, true);
+    popover.remove();
+    activeDeletePopover = null;
+    activeDeletePopoverCleanup = null;
+  };
+
+  document.addEventListener('mousedown', handlePointerDown, true);
+  document.addEventListener('keydown', handleKeyDown, true);
 }
 
 /**
@@ -183,23 +307,29 @@ chrome.storage.onChanged.addListener((changes, namespace) => {
 function createTrashIcon(menuBtn: HTMLElement) {
   const wrapper = document.createElement('button');
   wrapper.className = 'gqd-trash-btn';
+  wrapper.type = 'button';
+  wrapper.setAttribute('aria-label', 'Delete conversation');
   
   // Clean inline styles. No absolute positioning.
   wrapper.style.display = 'none';
   wrapper.style.alignItems = 'center';
   wrapper.style.justifyContent = 'center';
-  wrapper.style.width = '28px'; // Smaller to prevent height stretching
-  wrapper.style.height = '28px';
-  wrapper.style.borderRadius = '50%';
+  wrapper.style.width = '32px';
+  wrapper.style.height = '32px';
+  wrapper.style.minWidth = '32px';
+  wrapper.style.minHeight = '32px';
+  wrapper.style.borderRadius = '10px';
   wrapper.style.border = 'none';
   wrapper.style.backgroundColor = 'transparent';
   wrapper.style.color = '#444746';
   wrapper.style.cursor = 'pointer';
-  wrapper.style.padding = '4px';
+  wrapper.style.padding = '6px';
   wrapper.style.margin = '0 4px 0 0'; // 4px margin to the right (between trash and 3-dots)
   wrapper.style.boxSizing = 'border-box';
   wrapper.style.flexShrink = '0'; // Don't let flexbox crush it
-  wrapper.style.transition = 'background-color 0.2s, color 0.2s';
+  wrapper.style.transition = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    ? 'none'
+    : 'background-color 160ms ease, color 160ms ease, box-shadow 160ms ease';
   
   wrapper.innerHTML = `
     <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -211,15 +341,20 @@ function createTrashIcon(menuBtn: HTMLElement) {
   wrapper.addEventListener('click', (e) => {
     e.preventDefault();
     e.stopPropagation();
-    if (confirmDeletion()) return; // if dialog is already open 
-    performDeleteSequence(menuBtn, currentConfig.directDelete);
+    if (confirmDeletion()) return;
+
+    if (activeDeletePopover && activeDeletePopover.contains(e.target as Node)) {
+      return;
+    }
+
+    showDeletePopover(wrapper, menuBtn);
   });
 
   // Handle active states independently of global CSS
   wrapper.addEventListener('mouseenter', () => {
     // Dark mode check via simple media query in JS
     const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    wrapper.style.backgroundColor = isDark ? 'rgba(196, 199, 197, 0.08)' : 'rgba(68, 71, 70, 0.08)';
+    wrapper.style.backgroundColor = isDark ? 'rgba(242, 184, 181, 0.12)' : 'rgba(217, 48, 37, 0.08)';
     wrapper.style.color = isDark ? '#f2b8b5' : '#b3261e';
   });
   
@@ -227,6 +362,17 @@ function createTrashIcon(menuBtn: HTMLElement) {
     const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
     wrapper.style.backgroundColor = 'transparent';
     wrapper.style.color = isDark ? '#c4c7c5' : '#444746';
+  });
+
+  wrapper.addEventListener('focus', () => {
+    const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    wrapper.style.boxShadow = isDark
+      ? '0 0 0 2px rgba(242, 184, 181, 0.32)'
+      : '0 0 0 2px rgba(217, 48, 37, 0.2)';
+  });
+
+  wrapper.addEventListener('blur', () => {
+    wrapper.style.boxShadow = 'none';
   });
 
   return wrapper;
