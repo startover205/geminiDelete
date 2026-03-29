@@ -76,7 +76,7 @@ export default function Popup() {
           </div>
           <div>
             <h1 className="text-sm font-bold leading-none tracking-tight">Gemini Quick Delete</h1>
-            <p className="text-[10px] text-slate-400 mt-1 font-medium">V1.0.0 Free Edition</p>
+            <p className="text-[10px] text-slate-400 mt-1 font-medium">Fast cleanup for Gemini chats</p>
           </div>
         </div>
       </header>
@@ -96,9 +96,9 @@ export default function Popup() {
               <div className="flex items-start gap-3 pr-4">
                 <KeyboardIcon className="size-5 text-primary mt-0.5 shrink-0" />
                 <div>
-                  <p className="text-xs font-medium">Double-tap confirm</p>
+                  <p className="text-xs font-medium">Confirm before delete</p>
                   <p id="direct-delete-description" className="mt-1 text-[11px] leading-relaxed text-slate-400">
-                    Require a second key press before deleting a conversation to reduce accidental removals.
+                    Ask for a second key press before removing a conversation, so cleanup stays deliberate.
                   </p>
                 </div>
               </div>
@@ -129,10 +129,10 @@ export default function Popup() {
                 <div>
                   <p className="text-xs font-medium">Custom Shortcut</p>
                   <p id="shortcut-description" className="mt-1 text-[11px] leading-relaxed text-slate-400">
-                    Choose the keyboard shortcut that triggers quick delete while browsing Gemini.
+                    Pick the shortcut you want to use when deleting conversations inside Gemini.
                   </p>
                   <p id="shortcut-hint" className="mt-1 text-[10px] text-slate-500">
-                    {isRecording ? 'Recording now. Press Escape to cancel.' : 'Press Enter to start recording a new shortcut.'}
+                    {isRecording ? 'Recording now. Press Escape to cancel.' : 'Press Enter to record a new shortcut.'}
                   </p>
                 </div>
               </div>
@@ -149,9 +149,9 @@ export default function Popup() {
               <div className="flex items-start gap-3 pr-4">
                 <DeleteSweepIcon className="size-5 text-primary mt-0.5 shrink-0" />
                 <div>
-                  <p className="text-xs font-medium">Display chat list delete icon</p>
+                  <p className="text-xs font-medium">Show delete button in chat list</p>
                   <p id="trash-icon-description" className="mt-1 text-[11px] leading-relaxed text-slate-400">
-                    Show a visible delete shortcut in the Gemini conversation list for faster cleanup.
+                    Add a visible delete button to each Gemini conversation for faster one-click cleanup.
                   </p>
                 </div>
               </div>
@@ -172,7 +172,7 @@ export default function Popup() {
 
         {/* Section 2: SUPPORT & COMMUNITY */}
         <section className="mb-2" aria-labelledby="support-heading">
-          <h2 id="support-heading" className="px-2 pb-2 text-[11px] font-bold text-slate-500 uppercase tracking-wider">Support & Community</h2>
+          <h2 id="support-heading" className="px-2 pb-2 text-[11px] font-bold text-slate-500 uppercase tracking-wider">Support & Links</h2>
           <div className="grid grid-cols-3 gap-2">
             <button
               type="button"
@@ -182,7 +182,7 @@ export default function Popup() {
             >
               <StarIcon className="size-[18px]" />
               <span className="text-[10px] font-bold uppercase">Rate</span>
-              <span className="text-[9px] font-medium normal-case opacity-80">Coming soon</span>
+              <span className="text-[9px] font-medium normal-case opacity-80">After launch</span>
             </button>
             <a
               href="https://github.com/startover205/geminiDelete/issues"
@@ -219,7 +219,7 @@ export default function Popup() {
             </a>
           </div>
           <div className="text-[10px] text-slate-600 flex items-center gap-1">
-            Made with <span className="text-red-500">♥</span> for productivity
+            Built for a cleaner Gemini inbox
           </div>
         </div>
       </footer>
