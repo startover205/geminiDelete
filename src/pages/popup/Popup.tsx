@@ -14,6 +14,7 @@ import {
 export default function Popup() {
   const { config, saveShortcut, toggleTrashIcon, toggleDirectDelete, loading } = useShortcut();
   const [isRecording, setIsRecording] = useState(false);
+  const shortcutValue = formatShortcut(config.shortcut);
 
   const handleKeyDown = useCallback(
     (e: KeyboardEvent) => {
@@ -50,7 +51,7 @@ export default function Popup() {
     return () => window.removeEventListener('keydown', handleKeyDown, true);
   }, [isRecording, handleKeyDown]);
 
-  const formatShortcut = (s: ShortcutConfig) => {
+  function formatShortcut(s: ShortcutConfig) {
     const parts = [];
     if (s.ctrlKey) parts.push('Ctrl');
     if (s.metaKey) parts.push('Cmd');
@@ -61,7 +62,7 @@ export default function Popup() {
     if (keyName === ' ') keyName = 'Space';
     parts.push(keyName.charAt(0).toUpperCase() + keyName.slice(1));
     return parts.join(' + ');
-  };
+  }
 
   if (loading) return null;
 
@@ -81,6 +82,11 @@ export default function Popup() {
       </header>
 
       <main className="flex flex-col gap-1 p-3" aria-label="Extension settings">
+        <p className="sr-only" aria-live="polite">
+          {isRecording
+            ? 'Shortcut recording started. Press the new shortcut now, or press Escape to cancel.'
+            : `Current shortcut is ${shortcutValue}.`}
+        </p>
         {/* Section 1: PREFERENCES */}
         <section className="mb-4" aria-labelledby="preferences-heading">
           <h2 id="preferences-heading" className="px-2 pb-2 text-[11px] font-bold text-slate-500 uppercase tracking-wider">Preferences</h2>
@@ -105,7 +111,7 @@ export default function Popup() {
                   aria-describedby="direct-delete-description"
                   aria-label="Enable double-tap confirmation before delete"
                 />
-                <div className="w-9 h-5 bg-slate-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-primary"></div>
+                <div className="w-9 h-5 bg-slate-700 rounded-full peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-primary peer-focus-visible:ring-2 peer-focus-visible:ring-primary peer-focus-visible:ring-offset-2 peer-focus-visible:ring-offset-background-dark"></div>
               </label>
             </div>
 
@@ -113,8 +119,9 @@ export default function Popup() {
             <button
               type="button"
               aria-pressed={isRecording}
-              aria-describedby="shortcut-description"
-              className={`flex w-full items-center justify-between p-3 rounded-xl glass-panel group text-left cursor-pointer transition-colors ${isRecording ? 'bg-primary/10 ring-1 ring-primary' : 'hover:bg-slate-800'}`}
+              aria-describedby="shortcut-description shortcut-hint"
+              aria-label={isRecording ? 'Stop recording shortcut' : 'Record a new custom shortcut'}
+              className={`interactive-card flex w-full items-center justify-between p-3 rounded-xl glass-panel group text-left cursor-pointer transition-colors ${isRecording ? 'bg-primary/10 ring-1 ring-primary' : 'hover:bg-slate-800'}`}
               onClick={() => setIsRecording(!isRecording)}
             >
               <div className="flex items-start gap-3 pr-4">
@@ -124,11 +131,14 @@ export default function Popup() {
                   <p id="shortcut-description" className="mt-1 text-[11px] leading-relaxed text-slate-400">
                     Choose the keyboard shortcut that triggers quick delete while browsing Gemini.
                   </p>
+                  <p id="shortcut-hint" className="mt-1 text-[10px] text-slate-500">
+                    {isRecording ? 'Recording now. Press Escape to cancel.' : 'Press Enter to start recording a new shortcut.'}
+                  </p>
                 </div>
               </div>
               <div className="flex items-center gap-2">
                 <div className="px-2 py-1 rounded bg-slate-700 border border-slate-600 text-[10px] font-mono text-slate-300 shadow-sm flex items-center gap-2">
-                  <span>{isRecording ? 'Listening... ESC to cancel' : formatShortcut(config.shortcut)}</span>
+                  <span>{isRecording ? 'Listening... ESC to cancel' : shortcutValue}</span>
                   <EditIcon className={`size-3 opacity-60 ${isRecording ? 'opacity-100' : 'group-hover:opacity-100'}`} />
                 </div>
               </div>
@@ -154,7 +164,7 @@ export default function Popup() {
                   aria-describedby="trash-icon-description"
                   aria-label="Show delete icon in Gemini chat list"
                 />
-                <div className="w-9 h-5 bg-slate-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-primary"></div>
+                <div className="w-9 h-5 bg-slate-700 rounded-full peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-primary peer-focus-visible:ring-2 peer-focus-visible:ring-primary peer-focus-visible:ring-offset-2 peer-focus-visible:ring-offset-background-dark"></div>
               </label>
             </div>
           </div>
@@ -178,7 +188,7 @@ export default function Popup() {
               href="https://github.com/startover205/geminiDelete/issues"
               target="_blank"
               rel="noreferrer"
-              className="flex flex-col items-center justify-center gap-1.5 p-3 rounded-xl glass-panel hover:bg-slate-800 transition-colors"
+              className="interactive-card flex flex-col items-center justify-center gap-1.5 p-3 rounded-xl glass-panel hover:bg-slate-800 transition-colors"
               aria-label="Open GitHub issues to leave feedback"
             >
               <FeedbackIcon className="size-[18px]" />
@@ -188,7 +198,7 @@ export default function Popup() {
               href="https://startover205.github.io/coffeePage/?app=gemini_delete"
               target="_blank"
               rel="noreferrer"
-              className="flex flex-col items-center justify-center gap-1.5 p-3 rounded-xl bg-amber-400 text-amber-950 hover:bg-amber-500 transition-colors"
+              className="interactive-card flex flex-col items-center justify-center gap-1.5 p-3 rounded-xl bg-amber-400 text-amber-950 hover:bg-amber-500 transition-colors"
               aria-label="Open support page to buy coffee"
             >
               <CoffeeIcon className="size-[18px]" />
@@ -202,9 +212,9 @@ export default function Popup() {
       <footer className="mt-auto border-t border-slate-800 p-4">
         <div className="flex flex-col items-center gap-3">
           <div className="flex items-center gap-4 text-[11px] font-medium text-slate-400">
-            <a href="#" className="hover:text-primary transition-colors cursor-default">Privacy Policy</a>
+            <span className="cursor-not-allowed opacity-60" aria-label="Privacy Policy link coming soon">Privacy Policy</span>
             <span className="text-slate-700">•</span>
-            <a href="https://github.com/startover205/geminiDelete" target="_blank" rel="noreferrer" className="flex items-center gap-1 hover:text-primary transition-colors">
+            <a href="https://github.com/startover205/geminiDelete" target="_blank" rel="noreferrer" className="interactive-card flex items-center gap-1 hover:text-primary transition-colors rounded px-1 py-0.5">
               <span className="text-[14px] leading-none">★</span> GitHub
             </a>
           </div>

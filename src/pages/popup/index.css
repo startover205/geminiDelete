@@ -20,11 +20,21 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+:focus-visible {
+  outline: 2px solid rgba(43, 108, 238, 0.95);
+  outline-offset: 2px;
+}
+
 @layer utilities {
   .glass-panel {
     background-color: rgba(35, 47, 72, 0.4);
     backdrop-filter: blur(8px);
     border: 1px solid rgba(255, 255, 255, 0.05);
+  }
+
+  .interactive-card:focus-visible {
+    outline: 2px solid rgba(43, 108, 238, 0.95);
+    outline-offset: 2px;
   }
   
   .custom-scrollbar::-webkit-scrollbar {
