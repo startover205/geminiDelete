@@ -297,7 +297,7 @@ function handleKeyDown(e: KeyboardEvent) {
 
 function applyConfig(configToApply: AppConfig) {
   currentConfig = { ...DEFAULT_CONFIG, ...configToApply, directDelete: false };
-  console.log('Gemini Quick Delete config loaded:', currentConfig);
+  console.log('Delete Shortcut for Gemini™ config loaded:', currentConfig);
   
   if (currentConfig.enableTrashIcon) {
     document.body.classList.add('gqd-trash-enabled');

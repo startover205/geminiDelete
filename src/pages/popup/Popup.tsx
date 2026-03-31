@@ -74,7 +74,7 @@ export default function Popup() {
             <SparklesIcon className="size-5" />
           </div>
           <div>
-            <h1 className="text-sm font-bold leading-none tracking-tight">Gemini Quick Delete</h1>
+            <h1 className="text-sm font-bold leading-none tracking-tight">Delete Shortcut for Gemini™</h1>
             <p className="text-[10px] text-slate-400 mt-1 font-medium">Fast cleanup for Gemini chats</p>
           </div>
         </div>
@@ -160,11 +160,11 @@ export default function Popup() {
               <span className="text-[9px] font-medium normal-case opacity-80">After launch</span>
             </button>
             <a
-              href="https://github.com/startover205/geminiDelete/issues"
+              href="https://tally.so/r/q4W4r9"
               target="_blank"
               rel="noreferrer"
               className="interactive-card flex flex-col items-center justify-center gap-1.5 p-3 rounded-xl glass-panel hover:bg-slate-800 transition-colors"
-              aria-label="Open GitHub issues to leave feedback"
+              aria-label="Open feedback form"
             >
               <FeedbackIcon className="size-[18px]" />
               <span className="text-[10px] font-bold uppercase">Feedback</span>
@@ -187,7 +187,9 @@ export default function Popup() {
       <footer className="mt-auto border-t border-slate-800 p-4">
         <div className="flex flex-col items-center gap-3">
           <div className="flex items-center gap-4 text-[11px] font-medium text-slate-400">
-            <span className="cursor-not-allowed opacity-60" aria-label="Privacy Policy link coming soon">Privacy Policy</span>
+            <a href="/privacy.html" target="_blank" rel="noreferrer" className="interactive-card hover:text-primary transition-colors rounded px-1 py-0.5">
+              Privacy Policy
+            </a>
             <span className="text-slate-700">•</span>
             <a href="https://github.com/startover205/geminiDelete" target="_blank" rel="noreferrer" className="interactive-card flex items-center gap-1 hover:text-primary transition-colors rounded px-1 py-0.5">
               <span className="text-[14px] leading-none">★</span> GitHub

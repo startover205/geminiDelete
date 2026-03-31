@@ -1,6 +1,6 @@
 {
   "manifest_version": 3,
-  "name": "Gemini Quick Delete",
+  "name": "Delete Shortcut for Gemini™",
   "description": "Quickly delete Gemini conversations with a shortcut",
   "action": {
     "default_popup": "src/pages/popup/index.html",

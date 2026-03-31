@@ -1,4 +1,4 @@
-# Gemini Quick Delete
+# Delete Shortcut for Gemini™
 
 Browser extension for quickly deleting Gemini conversations with a custom shortcut.
 
