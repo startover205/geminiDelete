@@ -37,8 +37,14 @@ export function useShortcut() {
   useEffect(() => {
     chrome.storage.sync.get(['geminiQuickDeleteConfig', 'geminiQuickDeleteShortcut'], (result) => {
       if (result.geminiQuickDeleteConfig) {
-        // Merge with DEFAULT_CONFIG in case new keys were added
-        setConfig({ ...DEFAULT_CONFIG, ...result.geminiQuickDeleteConfig });
+        // Force directDelete off so older installs stay on the safer flow.
+        const normalizedConfig = {
+          ...DEFAULT_CONFIG,
+          ...result.geminiQuickDeleteConfig,
+          directDelete: false,
+        };
+        setConfig(normalizedConfig);
+        chrome.storage.sync.set({ geminiQuickDeleteConfig: normalizedConfig });
       } else if (result.geminiQuickDeleteShortcut) {
         // Migrate old format
         const migratedConfig = { ...DEFAULT_CONFIG, shortcut: result.geminiQuickDeleteShortcut };
@@ -50,8 +56,9 @@ export function useShortcut() {
   }, []);
 
   const saveConfig = (newConfig: AppConfig) => {
-    setConfig(newConfig);
-    chrome.storage.sync.set({ geminiQuickDeleteConfig: newConfig });
+    const normalizedConfig = { ...newConfig, directDelete: false };
+    setConfig(normalizedConfig);
+    chrome.storage.sync.set({ geminiQuickDeleteConfig: normalizedConfig });
   };
 
   const saveShortcut = (newShortcut: ShortcutConfig) => {
@@ -62,9 +69,5 @@ export function useShortcut() {
     saveConfig({ ...config, enableTrashIcon: !config.enableTrashIcon });
   };
 
-  const toggleDirectDelete = () => {
-    saveConfig({ ...config, directDelete: !config.directDelete });
-  };
-
-  return { config, saveShortcut, toggleTrashIcon, toggleDirectDelete, loading };
+  return { config, saveShortcut, toggleTrashIcon, loading };
 }

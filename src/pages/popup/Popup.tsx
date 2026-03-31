@@ -5,7 +5,6 @@ import {
   DeleteSweepIcon,
   EditIcon,
   FeedbackIcon,
-  KeyboardIcon,
   ShortcutIcon,
   SparklesIcon,
   StarIcon,
@@ -91,30 +90,6 @@ export default function Popup() {
         <section className="mb-4" aria-labelledby="preferences-heading">
           <h2 id="preferences-heading" className="px-2 pb-2 text-[11px] font-bold text-slate-500 uppercase tracking-wider">Preferences</h2>
           <div className="flex flex-col gap-1">
-            {/* Toggle 1: Double tap confirm (inverse of directDelete) */}
-            <div className="flex items-center justify-between p-3 rounded-xl glass-panel">
-              <div className="flex items-start gap-3 pr-4">
-                <KeyboardIcon className="size-5 text-primary mt-0.5 shrink-0" />
-                <div>
-                  <p className="text-xs font-medium">Confirm before delete</p>
-                  <p id="direct-delete-description" className="mt-1 text-[11px] leading-relaxed text-slate-400">
-                    Ask for a second key press before removing a conversation, so cleanup stays deliberate.
-                  </p>
-                </div>
-              </div>
-              <label className="relative inline-flex items-center cursor-pointer">
-                <input 
-                  type="checkbox" 
-                  className="sr-only peer" 
-                  checked={!config.directDelete}
-                  onChange={toggleDirectDelete}
-                  aria-describedby="direct-delete-description"
-                  aria-label="Enable double-tap confirmation before delete"
-                />
-                <div className="w-9 h-5 bg-slate-700 rounded-full peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-primary peer-focus-visible:ring-2 peer-focus-visible:ring-primary peer-focus-visible:ring-offset-2 peer-focus-visible:ring-offset-background-dark"></div>
-              </label>
-            </div>
-
             {/* Custom Shortcut */}
             <button
               type="button"
