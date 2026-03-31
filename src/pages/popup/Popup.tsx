@@ -187,7 +187,7 @@ export default function Popup() {
       <footer className="mt-auto border-t border-slate-800 p-4">
         <div className="flex flex-col items-center gap-3">
           <div className="flex items-center gap-4 text-[11px] font-medium text-slate-400">
-            <a href="/privacy.html" target="_blank" rel="noreferrer" className="interactive-card hover:text-primary transition-colors rounded px-1 py-0.5">
+            <a href="https://startover205.github.io/geminiDelete/privacy.html" target="_blank" rel="noreferrer" className="interactive-card hover:text-primary transition-colors rounded px-1 py-0.5">
               Privacy Policy
             </a>
             <span className="text-slate-700">•</span>
