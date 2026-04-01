@@ -32,6 +32,10 @@ args = ["-y", "@upstash/context7-mcp@latest"]
 [mcp_servers.exa]
 url = "https://mcp.exa.ai/mcp"
 
+[mcp_servers.lingo]
+command = "npx"
+args = ["-y", "mcp-remote", "https://mcp.lingo.dev/main"]
+
 [mcp_servers.tally]
 url = "https://api.tally.so/mcp"
 bearer_token_env_var = "TALLY_API_KEY"
