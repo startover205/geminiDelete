@@ -128,7 +128,7 @@ function showDeletePopover(anchorEl: HTMLElement, menuBtn: HTMLElement) {
   const popover = document.createElement('button');
   popover.className = 'gqd-delete-popover';
   popover.type = 'button';
-  popover.textContent = '確認刪除';
+  popover.textContent = 'Confirm delete';
   popover.setAttribute('role', 'dialog');
   popover.setAttribute('aria-modal', 'false');
   popover.setAttribute('aria-label', 'Delete conversation confirmation');
