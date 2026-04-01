@@ -195,8 +195,8 @@ export default function Popup() {
               <span className="text-[14px] leading-none">★</span> GitHub
             </a>
           </div>
-          <div className="text-[10px] text-slate-600 flex items-center gap-1">
-            Built for a cleaner Gemini inbox
+          <div className="text-[10px] text-slate-400 flex items-center gap-1">
+            Built to keep Gemini clutter-free
           </div>
         </div>
       </footer>
