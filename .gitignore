@@ -238,6 +238,9 @@ GitHub.sublime-settings
 
 ### VisualStudioCode ###
 .vscode/*
+
+# Playwright MCP browser profile, caches, screenshots, and downloaded assets
+.playwright-mcp/
 !.vscode/settings.json
 !.vscode/tasks.json
 !.vscode/launch.json

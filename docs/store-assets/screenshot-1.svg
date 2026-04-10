@@ -1,0 +1,49 @@
+<svg width="1280" height="800" viewBox="0 0 1280 800" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="120" y1="64" x2="1148" y2="736" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#F6F8FF"/>
+      <stop offset="1" stop-color="#EEF3FF"/>
+    </linearGradient>
+    <linearGradient id="card" x1="0" y1="0" x2="730" y2="420" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#0F172A"/>
+      <stop offset="1" stop-color="#111827"/>
+    </linearGradient>
+    <filter id="shadow" x="0" y="0" width="1280" height="800" filterUnits="userSpaceOnUse">
+      <feDropShadow dx="0" dy="20" stdDeviation="30" flood-color="#2B3A67" flood-opacity="0.16"/>
+    </filter>
+  </defs>
+
+  <rect width="1280" height="800" rx="40" fill="url(#bg)"/>
+  <circle cx="164" cy="116" r="90" fill="#DCE7FF"/>
+  <circle cx="1140" cy="686" r="120" fill="#DDEBFF"/>
+  <rect x="72" y="80" width="500" height="640" rx="36" fill="#FFFFFF" filter="url(#shadow)"/>
+  <text x="132" y="176" fill="#2453FF" font-size="20" font-family="Arial" font-weight="700">Delete Shortcut for Gemini™</text>
+  <text x="132" y="244" fill="#0F172A" font-size="58" font-family="Arial" font-weight="700">Delete chats</text>
+  <text x="132" y="312" fill="#0F172A" font-size="58" font-family="Arial" font-weight="700">without the menu maze</text>
+  <text x="132" y="382" fill="#475569" font-size="28" font-family="Arial">Press your shortcut and clean up Gemini</text>
+  <text x="132" y="422" fill="#475569" font-size="28" font-family="Arial">conversations in seconds.</text>
+
+  <rect x="132" y="484" width="350" height="72" rx="22" fill="#2453FF"/>
+  <text x="166" y="530" fill="#FFFFFF" font-size="26" font-family="Arial" font-weight="700">Cmd/Ctrl + Backspace</text>
+
+  <rect x="132" y="584" width="320" height="52" rx="18" fill="#E9F0FF"/>
+  <text x="158" y="617" fill="#2453FF" font-size="22" font-family="Arial" font-weight="700">Custom shortcut support</text>
+
+  <rect x="612" y="136" width="588" height="528" rx="36" fill="url(#card)" filter="url(#shadow)"/>
+  <rect x="648" y="176" width="220" height="34" rx="10" fill="#1E293B"/>
+  <rect x="648" y="234" width="504" height="72" rx="20" fill="#172033"/>
+  <text x="686" y="279" fill="#E2E8F0" font-size="26" font-family="Arial" font-weight="700">Delete Shortcut for Gemini™</text>
+  <text x="648" y="340" fill="#94A3B8" font-size="20" font-family="Arial" font-weight="700">PREFERENCES</text>
+
+  <rect x="648" y="372" width="504" height="124" rx="24" fill="#111827" stroke="#334155"/>
+  <text x="684" y="415" fill="#F8FAFC" font-size="26" font-family="Arial" font-weight="700">Custom Shortcut</text>
+  <text x="684" y="448" fill="#94A3B8" font-size="18" font-family="Arial">Set the key combo you want to use in Gemini.</text>
+  <rect x="956" y="404" width="160" height="40" rx="12" fill="#1E293B" stroke="#475569"/>
+  <text x="980" y="431" fill="#E2E8F0" font-size="18" font-family="Arial" font-weight="700">Cmd + Backspace</text>
+
+  <rect x="648" y="518" width="504" height="104" rx="24" fill="#111827" stroke="#334155"/>
+  <text x="684" y="560" fill="#F8FAFC" font-size="24" font-family="Arial" font-weight="700">Show delete button in chat list</text>
+  <text x="684" y="592" fill="#94A3B8" font-size="18" font-family="Arial">Add one-click cleanup right inside the Gemini sidebar.</text>
+  <rect x="1056" y="549" width="60" height="30" rx="15" fill="#2453FF"/>
+  <circle cx="1099" cy="564" r="11" fill="#FFFFFF"/>
+</svg>
