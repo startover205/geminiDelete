@@ -158,7 +158,6 @@ export default function Popup() {
             >
               <StarIcon className="size-[18px]" />
               <span className="text-[10px] font-bold uppercase">{chrome.i18n.getMessage('rateAction')}</span>
-              <span className="text-[9px] font-medium normal-case opacity-80">{chrome.i18n.getMessage('rateHint')}</span>
             </a>
             <a
               href="https://tally.so/r/q4W4r9"
