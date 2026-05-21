@@ -454,13 +454,18 @@ function initTrashIconsObserver() {
         if (!container.querySelector('.gqd-trash-btn')) {
           const trashBtn = createTrashIcon(btn as HTMLElement);
           
+          // Ensure the container aligns children horizontally
+          container.style.display = 'flex';
+          container.style.flexDirection = 'row';
+          container.style.alignItems = 'center';
+          
           // Insert BEFORE the 3-dots menu button, placing it cleanly in the flex row
           container.insertBefore(trashBtn, btn);
           
           // Manage hover state via JS to absolutely avoid CSS layout side effects
           hoverTarget?.addEventListener('mouseenter', () => {
             if (currentConfig.enableTrashIcon) {
-              trashBtn.style.display = 'flex';
+              trashBtn.style.display = 'inline-flex';
               // Keep text color in sync with system theme when showing
               const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
               trashBtn.style.color = isDark ? '#8ab4f8' : '#5f6368';
