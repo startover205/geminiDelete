@@ -257,11 +257,11 @@ async function triggerDeletionFlow() {
     .filter(btn => btn !== null && btn.offsetParent !== null) as HTMLElement[];
   
   // Usually the top right one is not inside the nav sidebar
-  activeChatMenuBtn = possibleButtons.find(btn => !btn.closest('nav')) || null;
+  activeChatMenuBtn = possibleButtons.find(btn => !btn.closest('nav, mat-sidenav, mat-drawer, [role="navigation"]')) || null;
   
   if (!activeChatMenuBtn) {
       // Fallback to old sidebar logic
-      activeChatMenuBtn = document.querySelector('nav [aria-selected="true"] + button') ||
+      activeChatMenuBtn = document.querySelector('nav [aria-selected="true"] + button, mat-sidenav [aria-selected="true"] + button') ||
                           document.querySelector('a.conversation.selected + button.conversation-actions-menu-button') || 
                           document.querySelector('.conversation-container[aria-selected="true"] button[aria-haspopup="menu"]');
       
@@ -422,8 +422,27 @@ function initTrashIconsObserver() {
   const observer = new MutationObserver(() => {
     if (!currentConfig.enableTrashIcon) return;
 
-    // Find all menu buttons in the chat list. Use strict selectors to avoid global buttons.
-    const menuButtons = document.querySelectorAll('nav button[aria-haspopup="menu"]:not(.gqd-processed), .conversation-actions-menu-button:not(.gqd-processed)');
+    // Find all sidebar containers
+    const sidebarContainers = Array.from(document.querySelectorAll('nav, mat-sidenav, mat-drawer, [role="navigation"]'));
+    // Fallback: use elements containing the title text
+    const titleTexts = Array.from(document.querySelectorAll('.title-text'));
+    const fallbackContainers = titleTexts.map(t => t.closest('ul') || t.closest('div[role="list"]')).filter(Boolean) as HTMLElement[];
+    const allContainers = [...sidebarContainers, ...fallbackContainers];
+
+    const menuButtons: HTMLElement[] = [];
+    allContainers.forEach(container => {
+      if (!container) return;
+      const standardBtns = Array.from(container.querySelectorAll('button[aria-haspopup="menu"]:not(.gqd-processed), .conversation-actions-menu-button:not(.gqd-processed)')) as HTMLElement[];
+      standardBtns.forEach(b => { if (!menuButtons.includes(b)) menuButtons.push(b); });
+      
+      const icons = Array.from(container.querySelectorAll('mat-icon[data-mat-icon-name="more_vert"]'));
+      icons.forEach(icon => {
+          const btn = icon.closest('button');
+          if (btn && !btn.classList.contains('gqd-processed') && !menuButtons.includes(btn)) {
+              menuButtons.push(btn);
+          }
+      });
+    });
     
     menuButtons.forEach(btn => {
       btn.classList.add('gqd-processed');
