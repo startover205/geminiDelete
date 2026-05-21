@@ -1,0 +1,20 @@
+{
+  "extName": { "message": "اختصار الحذف لـ Gemini™" },
+  "extDescription": { "message": "احذف محادثات Gemini بسرعة باستخدام اختصار" },
+  "popupSubtitle": { "message": "تنظيف سريع لمحادثات Gemini" },
+  "preferencesHeading": { "message": "التفضيلات" },
+  "customShortcut": { "message": "اختصار مخصص" },
+  "customShortcutDesc": { "message": "اختر الاختصار الذي تريد استخدامه عند حذف المحادثات داخل Gemini." },
+  "customShortcutHintRecord": { "message": "جارِ التسجيل الآن. اضغط على Escape للإلغاء." },
+  "customShortcutHintIdle": { "message": "اضغط على Enter لتسجيل اختصار جديد." },
+  "listeningMsg": { "message": "جارِ الاستماع... ESC للإلغاء" },
+  "showTrashIcon": { "message": "إظهار زر الحذف في قائمة المحادثات" },
+  "showTrashIconDesc": { "message": "أضف زر حذف مرئي إلى كل محادثة في Gemini لتنظيف سريع بنقرة واحدة." },
+  "supportHeading": { "message": "الدعم والمجتمع" },
+  "rateAction": { "message": "تقييم" },
+  "feedbackAction": { "message": "ملاحظات" },
+  "coffeeAction": { "message": "شراء قهوة" },
+  "privacyPolicy": { "message": "سياسة الخصوصية" },
+  "builtToKeep": { "message": "صُمم للحفاظ على Gemini خاليًا من الفوضى" },
+  "confirmDelete": { "message": "تأكيد الحذف" }
+}

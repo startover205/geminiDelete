@@ -1,0 +1,20 @@
+{
+  "extName": { "message": "Atajo de Borrado para Gemini™" },
+  "extDescription": { "message": "Elimina rápidamente las conversaciones de Gemini con un atajo" },
+  "popupSubtitle": { "message": "Limpieza rápida de chats de Gemini" },
+  "preferencesHeading": { "message": "Preferencias" },
+  "customShortcut": { "message": "Atajo Personalizado" },
+  "customShortcutDesc": { "message": "Elige el atajo que deseas usar al eliminar conversaciones en Gemini." },
+  "customShortcutHintRecord": { "message": "Grabando ahora. Pulsa Escape para cancelar." },
+  "customShortcutHintIdle": { "message": "Pulsa Enter para grabar un nuevo atajo." },
+  "listeningMsg": { "message": "Escuchando... ESC para cancelar" },
+  "showTrashIcon": { "message": "Mostrar botón de borrar en la lista de chats" },
+  "showTrashIconDesc": { "message": "Añade un botón de borrar visible a cada conversación de Gemini para una limpieza rápida con un solo clic." },
+  "supportHeading": { "message": "Soporte y Comunidad" },
+  "rateAction": { "message": "Calificar" },
+  "feedbackAction": { "message": "Comentarios" },
+  "coffeeAction": { "message": "Invitar un café" },
+  "privacyPolicy": { "message": "Política de Privacidad" },
+  "builtToKeep": { "message": "Creado para mantener Gemini libre de desorden" },
+  "confirmDelete": { "message": "Confirmar borrado" }
+}

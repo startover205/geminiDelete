@@ -1,0 +1,20 @@
+{
+  "extName": { "message": "Raccourci de Suppression pour Gemini™" },
+  "extDescription": { "message": "Supprimez rapidement les conversations Gemini avec un raccourci" },
+  "popupSubtitle": { "message": "Nettoyage rapide des chats Gemini" },
+  "preferencesHeading": { "message": "Préférences" },
+  "customShortcut": { "message": "Raccourci Personnalisé" },
+  "customShortcutDesc": { "message": "Choisissez le raccourci que vous souhaitez utiliser pour supprimer les conversations dans Gemini." },
+  "customShortcutHintRecord": { "message": "Enregistrement en cours. Appuyez sur Échap pour annuler." },
+  "customShortcutHintIdle": { "message": "Appuyez sur Entrée pour enregistrer un nouveau raccourci." },
+  "listeningMsg": { "message": "Écoute... ÉCHAP pour annuler" },
+  "showTrashIcon": { "message": "Afficher le bouton de suppression dans la liste des chats" },
+  "showTrashIconDesc": { "message": "Ajoute un bouton de suppression visible à chaque conversation Gemini pour un nettoyage rapide en un clic." },
+  "supportHeading": { "message": "Support et Communauté" },
+  "rateAction": { "message": "Évaluer" },
+  "feedbackAction": { "message": "Retour d'information" },
+  "coffeeAction": { "message": "Offrir un café" },
+  "privacyPolicy": { "message": "Politique de Confidentialité" },
+  "builtToKeep": { "message": "Conçu pour garder Gemini bien rangé" },
+  "confirmDelete": { "message": "Confirmer la suppression" }
+}

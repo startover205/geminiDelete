@@ -1,0 +1,20 @@
+{
+  "extName": { "message": "Gemini™ 削除ショートカット" },
+  "extDescription": { "message": "ショートカットを使用して Gemini の会話履歴を素早く削除します" },
+  "popupSubtitle": { "message": "Gemini チャット履歴の素早いクリーンアップ" },
+  "preferencesHeading": { "message": "設定" },
+  "customShortcut": { "message": "カスタムショートカット" },
+  "customShortcutDesc": { "message": "Gemini で会話を削除する際に使用したいショートカットを選択してください。" },
+  "customShortcutHintRecord": { "message": "ショートカットを記録中。Escape を押してキャンセル。" },
+  "customShortcutHintIdle": { "message": "Enter を押して新しいショートカットを記録します。" },
+  "listeningMsg": { "message": "待機中... ESC でキャンセル" },
+  "showTrashIcon": { "message": "チャットリストに削除ボタンを表示" },
+  "showTrashIconDesc": { "message": "各 Gemini 会話に専用の削除ボタンを追加し、ワンクリックで素早くクリーンアップします。" },
+  "supportHeading": { "message": "コミュニティとサポート" },
+  "rateAction": { "message": "評価" },
+  "feedbackAction": { "message": "フィードバック" },
+  "coffeeAction": { "message": "コーヒーをおごる" },
+  "privacyPolicy": { "message": "プライバシーポリシー" },
+  "builtToKeep": { "message": "Gemini をスッキリと保ちます" },
+  "confirmDelete": { "message": "削除を確認" }
+}
