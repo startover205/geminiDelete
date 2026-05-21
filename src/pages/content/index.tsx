@@ -45,10 +45,14 @@ function matchesShortcut(e: KeyboardEvent, config: ShortcutConfig): boolean {
  * Finds and clicks the confirm button in the deletion dialog
  */
 function confirmDeletion() {
-  const dialogConfirmBtn = Array.from(document.querySelectorAll('mat-dialog-container button'))
-      .find(btn => (btn.textContent?.includes('刪除') || btn.textContent?.includes('Delete')) && 
-                   !btn.textContent?.includes('取消') && !btn.textContent?.includes('Cancel') &&
-                   (btn as HTMLElement).offsetParent !== null) as HTMLElement;
+  let dialogConfirmBtn = document.querySelector('gem-button[data-test-id="confirm-button"] button') as HTMLElement;
+  
+  if (!dialogConfirmBtn) {
+      dialogConfirmBtn = Array.from(document.querySelectorAll('mat-dialog-container button, .mdc-dialog button'))
+          .find(btn => (btn.textContent?.includes('刪除') || btn.textContent?.includes('Delete')) && 
+                       !btn.textContent?.includes('取消') && !btn.textContent?.includes('Cancel') &&
+                       (btn as HTMLElement).offsetParent !== null) as HTMLElement;
+  }
   
   if (dialogConfirmBtn) {
       console.log("Gemini Shortcut: Confirmation dialog detected. Performing final deletion.");
@@ -66,7 +70,7 @@ function performDeleteSequence(menuBtn: HTMLElement, isDirectDelete: boolean) {
   console.log("Gemini Shortcut: Opened menu.");
 
   setTimeout(() => {
-      const menuItems = Array.from(document.querySelectorAll('button[role="menuitem"], .mat-menu-item, .mat-mdc-menu-item'));
+      const menuItems = Array.from(document.querySelectorAll('button[role="menuitem"], .mat-menu-item, .mat-mdc-menu-item, [role="menuitem"]'));
       const deleteBtn = menuItems.find(item => 
           item.textContent?.includes('刪除') || 
           item.textContent?.includes('Delete')
@@ -245,15 +249,27 @@ async function triggerDeletionFlow() {
   console.log("Gemini Shortcut: Dialog not detected. Identifying active conversation...");
 
   // 2. Find the menu button for the active conversation
-  let activeChatMenuBtn = document.querySelector('nav [aria-selected="true"] + button') ||
-                          document.querySelector('a.conversation.selected + button.conversation-actions-menu-button') || 
-                          document.querySelector('.conversation-container[aria-selected="true"] button[aria-haspopup="menu"]');
+  // Prioritize the top right "three dots" menu for the current conversation
+  let activeChatMenuBtn: Element | null = null;
+  const moreVertIcons = Array.from(document.querySelectorAll('mat-icon[data-mat-icon-name="more_vert"]'));
+  const possibleButtons = moreVertIcons
+    .map(icon => icon.closest('button'))
+    .filter(btn => btn !== null && btn.offsetParent !== null) as HTMLElement[];
+  
+  // Usually the top right one is not inside the nav sidebar
+  activeChatMenuBtn = possibleButtons.find(btn => !btn.closest('nav')) || null;
   
   if (!activeChatMenuBtn) {
-      // Fallback: try to find any button next to a selected link in nav
-      const selectedLink = document.querySelector('nav [aria-selected="true"]') || document.querySelector('a.conversation.selected');
-      if (selectedLink && selectedLink.parentElement) {
-          activeChatMenuBtn = selectedLink.parentElement.querySelector('button[aria-haspopup="menu"]');
+      // Fallback to old sidebar logic
+      activeChatMenuBtn = document.querySelector('nav [aria-selected="true"] + button') ||
+                          document.querySelector('a.conversation.selected + button.conversation-actions-menu-button') || 
+                          document.querySelector('.conversation-container[aria-selected="true"] button[aria-haspopup="menu"]');
+      
+      if (!activeChatMenuBtn) {
+          const selectedLink = document.querySelector('nav [aria-selected="true"]') || document.querySelector('a.conversation.selected');
+          if (selectedLink && selectedLink.parentElement) {
+              activeChatMenuBtn = selectedLink.parentElement.querySelector('button[aria-haspopup="menu"]');
+          }
       }
   }
 
