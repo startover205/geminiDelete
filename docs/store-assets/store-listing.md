@@ -11,7 +11,7 @@
 ## 🇺🇸 English (Default)
 
 ### Short Description
-Quickly delete Gemini conversations with a custom shortcut and optional one-click sidebar delete button.
+Quickly delete Gemini conversations with a shortcut or one-click sidebar button.
 
 ### Detailed Description
 🔥 Updated for the May 19 Gemini UI changes — Fully compatible!
@@ -55,6 +55,11 @@ Gemini™ 刪除快捷鍵 幫助您更快速地清理 Gemini 聊天室。
 - 使用 Chrome 儲存空間將設定保存在本地
 - 輕量級擴充功能，不含任何分析或追蹤程式碼
 
+隱私權說明：
+- 僅儲存您的擴充功能設定，例如快捷鍵偏好和介面切換設定
+- 不會收集或向開發者傳送您的 Gemini 對話內容
+- 不包含任何分析或廣告追蹤程式碼
+
 ---
 
 ## 🇨🇳 Simplified Chinese (zh_CN)
@@ -76,6 +81,11 @@ Gemini™ 删除快捷键 帮助您更快速地清理 Gemini 聊天室。
 - 🌍 完整支持 9 种语言，并内置好用的地球仪切换按钮！
 - 使用 Chrome 存储空间将设置保存在本地
 - 轻量级扩展程序，不含任何分析或跟踪代码
+
+隐私说明：
+- 仅存储您的扩展程序设置，例如快捷键偏好和界面切换设置
+- 不会收集或向开发者传送您的 Gemini 对话内容
+- 不包含任何分析或广告跟踪代码
 
 ---
 
@@ -99,6 +109,11 @@ Gemini™ 削除ショートカットは、Gemini のチャットをより素早
 - 設定は Chrome ストレージを使用してローカルに保存されます
 - 分析やトラッキングを行わない軽量な拡張機能
 
+プライバシー：
+- ショートカット設定や UI の切り替えなど、拡張機能の設定のみを保存します
+- Gemini の会話内容を収集したり、開発者に送信したりすることはありません
+- 分析や広告トラッキングは一切含まれていません
+
 ---
 
 ## 🇰🇷 Korean (ko)
@@ -121,17 +136,22 @@ Gemini™ 삭제 단축키를 사용하면 Gemini 채팅을 더 빠르게 정리
 - Chrome 스토리지를 사용하여 설정을 로컬에 안전하게 저장
 - 분석 및 추적 코드가 없는 가벼운 확장 프로그램
 
+개인정보 보호:
+- 단축키 설정 및 UI 토글과 같은 확장 프로그램 설정만 저장합니다
+- Gemini 대화 내용을 수집하거나 개발자에게 전송하지 않습니다
+- 분석 또는 광고 추적 코드가 포함되어 있지 않습니다
+
 ---
 
 ## 🇪🇸 Spanish (es)
 
 ### Short Description
-Elimina rápidamente las conversaciones de Gemini con un atajo personalizado y un botón de borrado de un solo clic.
+Elimina chats de Gemini con un atajo o botón de borrado en un clic.
 
 ### Detailed Description
 🔥 Actualizado para los cambios de la interfaz de Gemini del 19 de mayo — ¡Totalmente compatible!
 
-El Atajo de Borrado para Gemini™ te ayuda a limpiar tus chats de Gemini más rápido.
+Atajo de Borrado para Gemini™ te ayuda a limpiar tus chats de Gemini más rápido.
 
 Usa un atajo de teclado personalizado para activar el borrado de la conversación actual, o activa un botón de borrado visible en la barra lateral para una limpieza con un solo clic.
 
@@ -143,12 +163,17 @@ Características:
 - Guarda tus configuraciones localmente
 - Extensión ligera sin análisis ni rastreo
 
+Privacidad:
+- Guarda solo los ajustes de la extensión, como las preferencias de atajos y los interruptores de la interfaz
+- No recopila ni transmite el contenido de tus conversaciones de Gemini al desarrollador
+- No incluye análisis ni seguimiento de anuncios
+
 ---
 
 ## 🇫🇷 French (fr)
 
 ### Short Description
-Supprimez rapidement les conversations Gemini avec un raccourci personnalisé et un bouton de suppression en un clic.
+Supprimez vos chats Gemini avec un raccourci ou un bouton en un clic.
 
 ### Detailed Description
 🔥 Mis à jour pour les changements d'interface Gemini du 19 mai — Entièrement compatible !
@@ -165,17 +190,22 @@ Caractéristiques :
 - Stockez les paramètres localement
 - Extension légère sans analyse ni suivi
 
+Confidentialité :
+- Stocke uniquement les paramètres de votre extension, tels que les préférences de raccourci et les bascules d'interface
+- Ne collecte ni ne transmet le contenu des conversations Gemini au développeur
+- Ne contient aucun script d'analyse ou de suivi publicitaire
+
 ---
 
 ## 🇷🇺 Russian (ru)
 
 ### Short Description
-Быстрое удаление чатов Gemini с помощью настраиваемой горячей клавиши и кнопки удаления в один клик.
+Быстрое удаление чатов Gemini горячей клавишей или кнопкой в один клик.
 
 ### Detailed Description
 🔥 Обновлено для изменений интерфейса Gemini от 19 мая — Полная совместимость!
 
-Быстрое удаление для Gemini™ помогает быстрее очищать ваши чаты.
+Горячая клавиша удаления для Gemini™ помогает быстрее очищать ваши чаты.
 
 Используйте свою горячую клавишу для удаления активного разговора или включите видимую кнопку удаления на боковой панели.
 
@@ -187,12 +217,17 @@ Caractéristiques :
 - Сохранение настроек локально
 - Легкое расширение без аналитики и отслеживания
 
+Конфиденциальность:
+- Сохраняет только настройки расширения, такие как предпочтения горячих клавиш и переключатели интерфейса
+- Не собирает и не передает разработчику содержимое разговоров Gemini
+- Не содержит аналитики или рекламного отслеживания
+
 ---
 
 ## 🇦🇪 Arabic (ar)
 
 ### Short Description
-احذف محادثات Gemini بسرعة باستخدام اختصار مخصص وزر حذف بنقرة واحدة في الشريط الجانبي.
+احذف محادثات Gemini بسرعة باختصار أو زر حذف بنقرة واحدة.
 
 ### Detailed Description
 🔥 تم التحديث لتغييرات واجهة Gemini في 19 مايو — متوافق بالكامل!
@@ -208,3 +243,8 @@ Caractéristiques :
 - 🌍 دعم كامل لـ 9 لغات مع زر تبديل لغة سهل الاستخدام!
 - تخزين الإعدادات محليًا
 - إضافة خفيفة بدون تحليلات أو تتبع
+
+الخصوصية:
+- يحفظ فقط إعدادات الإضافة، مثل تفضيلات الاختصارات وتبديل واجهة المستخدم
+- لا يجمع أو يرسل محتوى محادثات Gemini إلى المطور
+- لا يتضمن أي تتبع للإعلانات أو التحليلات
