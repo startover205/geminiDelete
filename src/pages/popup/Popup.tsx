@@ -149,16 +149,16 @@ export default function Popup() {
         <section className="mb-2" aria-labelledby="support-heading">
           <h2 id="support-heading" className="px-2 pb-2 text-[11px] font-bold text-slate-500 uppercase tracking-wider">Support & Links</h2>
           <div className="grid grid-cols-3 gap-2">
-            <button
-              type="button"
-              disabled
-              aria-label="Rate link coming soon until the extension is published"
-              className="flex flex-col items-center justify-center gap-1.5 p-3 rounded-xl bg-primary/50 text-white/80 transition-colors shadow-sm cursor-not-allowed opacity-70"
+            <a
+              href="https://chromewebstore.google.com/detail/delete-shortcut-for-gemin/pmdbcmgfbdphooeakooejbkjpiiahdjo/reviews"
+              target="_blank"
+              rel="noreferrer"
+              className="interactive-card flex flex-col items-center justify-center gap-1.5 p-3 rounded-xl glass-panel hover:bg-slate-800 transition-colors"
+              aria-label="Rate this extension on Chrome Web Store"
             >
               <StarIcon className="size-[18px]" />
               <span className="text-[10px] font-bold uppercase">Rate</span>
-              <span className="text-[9px] font-medium normal-case opacity-80">After launch</span>
-            </button>
+            </a>
             <a
               href="https://tally.so/r/q4W4r9"
               target="_blank"
