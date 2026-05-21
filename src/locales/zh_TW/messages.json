@@ -1,0 +1,21 @@
+{
+  "extName": { "message": "Gemini™ 刪除快捷鍵" },
+  "extDescription": { "message": "使用快捷鍵快速刪除 Gemini 的對話紀錄" },
+  "popupSubtitle": { "message": "Gemini 聊天記錄快速清理" },
+  "preferencesHeading": { "message": "偏好設定" },
+  "customShortcut": { "message": "自訂快捷鍵" },
+  "customShortcutDesc": { "message": "請選擇您在 Gemini 中刪除對話時想使用的快捷鍵。" },
+  "customShortcutHintRecord": { "message": "正在錄製快捷鍵，按 Escape 取消。" },
+  "customShortcutHintIdle": { "message": "按 Enter 錄製新的快捷鍵。" },
+  "listeningMsg": { "message": "正在監聽... ESC 取消" },
+  "showTrashIcon": { "message": "在對話列表顯示刪除按鈕" },
+  "showTrashIconDesc": { "message": "為每個 Gemini 對話新增一個獨立的刪除按鈕，實現一鍵快速清理。" },
+  "supportHeading": { "message": "社群與支持" },
+  "rateAction": { "message": "評價" },
+  "rateHint": { "message": "即將開放" },
+  "feedbackAction": { "message": "意見回饋" },
+  "coffeeAction": { "message": "請杯咖啡" },
+  "privacyPolicy": { "message": "隱私權政策" },
+  "builtToKeep": { "message": "讓 Gemini 保持乾淨清爽" },
+  "confirmDelete": { "message": "確認刪除" }
+}

@@ -1,10 +1,21 @@
 {
-  "extName": {
-    "message": "name in src/locales/en/messages.json",
-    "description": "Extension name"
-  },
-  "extDescription": {
-    "message": "description in src/locales/en/messages.json",
-    "description": "Extension description"
-  }
+  "extName": { "message": "Delete Shortcut for Gemini™" },
+  "extDescription": { "message": "Quickly delete Gemini conversations with a shortcut" },
+  "popupSubtitle": { "message": "Fast cleanup for Gemini chats" },
+  "preferencesHeading": { "message": "Preferences" },
+  "customShortcut": { "message": "Custom Shortcut" },
+  "customShortcutDesc": { "message": "Pick the shortcut you want to use when deleting conversations inside Gemini." },
+  "customShortcutHintRecord": { "message": "Recording now. Press Escape to cancel." },
+  "customShortcutHintIdle": { "message": "Press Enter to record a new shortcut." },
+  "listeningMsg": { "message": "Listening... ESC to cancel" },
+  "showTrashIcon": { "message": "Show delete button in chat list" },
+  "showTrashIconDesc": { "message": "Add a visible delete button to each Gemini conversation for faster one-click cleanup." },
+  "supportHeading": { "message": "Support & Links" },
+  "rateAction": { "message": "Rate" },
+  "rateHint": { "message": "After launch" },
+  "feedbackAction": { "message": "Feedback" },
+  "coffeeAction": { "message": "Coffee" },
+  "privacyPolicy": { "message": "Privacy Policy" },
+  "builtToKeep": { "message": "Built to keep Gemini clutter-free" },
+  "confirmDelete": { "message": "Confirm delete" }
 }

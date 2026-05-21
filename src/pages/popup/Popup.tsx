@@ -74,8 +74,8 @@ export default function Popup() {
             <SparklesIcon className="size-5" />
           </div>
           <div>
-            <h1 className="text-sm font-bold leading-none tracking-tight">Delete Shortcut for Gemini™</h1>
-            <p className="text-[10px] text-slate-400 mt-1 font-medium">Fast cleanup for Gemini chats</p>
+            <h1 className="text-sm font-bold leading-none tracking-tight">{chrome.i18n.getMessage('extName')}</h1>
+            <p className="text-[10px] text-slate-400 mt-1 font-medium">{chrome.i18n.getMessage('popupSubtitle')}</p>
           </div>
         </div>
       </header>
@@ -88,7 +88,7 @@ export default function Popup() {
         </p>
         {/* Section 1: PREFERENCES */}
         <section className="mb-4" aria-labelledby="preferences-heading">
-          <h2 id="preferences-heading" className="px-2 pb-2 text-[11px] font-bold text-slate-500 uppercase tracking-wider">Preferences</h2>
+          <h2 id="preferences-heading" className="px-2 pb-2 text-[11px] font-bold text-slate-500 uppercase tracking-wider">{chrome.i18n.getMessage('preferencesHeading')}</h2>
           <div className="flex flex-col gap-1">
             {/* Custom Shortcut */}
             <button
@@ -102,18 +102,18 @@ export default function Popup() {
               <div className="flex items-start gap-3 pr-4">
                 <ShortcutIcon className="size-5 text-primary mt-0.5 shrink-0" />
                 <div>
-                  <p className="text-xs font-medium">Custom Shortcut</p>
+                  <p className="text-xs font-medium">{chrome.i18n.getMessage('customShortcut')}</p>
                   <p id="shortcut-description" className="mt-1 text-[11px] leading-relaxed text-slate-400">
-                    Pick the shortcut you want to use when deleting conversations inside Gemini.
+                    {chrome.i18n.getMessage('customShortcutDesc')}
                   </p>
                   <p id="shortcut-hint" className="mt-1 text-[10px] text-slate-500">
-                    {isRecording ? 'Recording now. Press Escape to cancel.' : 'Press Enter to record a new shortcut.'}
+                    {isRecording ? chrome.i18n.getMessage('customShortcutHintRecord') : chrome.i18n.getMessage('customShortcutHintIdle')}
                   </p>
                 </div>
               </div>
               <div className="flex items-center gap-2">
                 <div className="px-2 py-1 rounded bg-slate-700 border border-slate-600 text-[10px] font-mono text-slate-300 shadow-sm flex items-center gap-2">
-                  <span>{isRecording ? 'Listening... ESC to cancel' : shortcutValue}</span>
+                  <span>{isRecording ? chrome.i18n.getMessage('listeningMsg') : shortcutValue}</span>
                   <EditIcon className={`size-3 opacity-60 ${isRecording ? 'opacity-100' : 'group-hover:opacity-100'}`} />
                 </div>
               </div>
@@ -124,9 +124,9 @@ export default function Popup() {
               <div className="flex items-start gap-3 pr-4">
                 <DeleteSweepIcon className="size-5 text-primary mt-0.5 shrink-0" />
                 <div>
-                  <p className="text-xs font-medium">Show delete button in chat list</p>
+                  <p className="text-xs font-medium">{chrome.i18n.getMessage('showTrashIcon')}</p>
                   <p id="trash-icon-description" className="mt-1 text-[11px] leading-relaxed text-slate-400">
-                    Add a visible delete button to each Gemini conversation for faster one-click cleanup.
+                    {chrome.i18n.getMessage('showTrashIconDesc')}
                   </p>
                 </div>
               </div>
@@ -147,7 +147,7 @@ export default function Popup() {
 
         {/* Section 2: SUPPORT & COMMUNITY */}
         <section className="mb-2" aria-labelledby="support-heading">
-          <h2 id="support-heading" className="px-2 pb-2 text-[11px] font-bold text-slate-500 uppercase tracking-wider">Support & Links</h2>
+          <h2 id="support-heading" className="px-2 pb-2 text-[11px] font-bold text-slate-500 uppercase tracking-wider">{chrome.i18n.getMessage('supportHeading')}</h2>
           <div className="grid grid-cols-3 gap-2">
             <a
               href="https://chromewebstore.google.com/detail/delete-shortcut-for-gemin/pmdbcmgfbdphooeakooejbkjpiiahdjo/reviews"
@@ -157,7 +157,8 @@ export default function Popup() {
               aria-label="Rate this extension on Chrome Web Store"
             >
               <StarIcon className="size-[18px]" />
-              <span className="text-[10px] font-bold uppercase">Rate</span>
+              <span className="text-[10px] font-bold uppercase">{chrome.i18n.getMessage('rateAction')}</span>
+              <span className="text-[9px] font-medium normal-case opacity-80">{chrome.i18n.getMessage('rateHint')}</span>
             </a>
             <a
               href="https://tally.so/r/q4W4r9"
@@ -167,7 +168,7 @@ export default function Popup() {
               aria-label="Open feedback form"
             >
               <FeedbackIcon className="size-[18px]" />
-              <span className="text-[10px] font-bold uppercase">Feedback</span>
+              <span className="text-[10px] font-bold uppercase">{chrome.i18n.getMessage('feedbackAction')}</span>
             </a>
             <a
               href="https://startover205.github.io/coffeePage/?app=gemini_delete"
@@ -177,7 +178,7 @@ export default function Popup() {
               aria-label="Open support page to buy coffee"
             >
               <CoffeeIcon className="size-[18px]" />
-              <span className="text-[10px] font-bold uppercase">Coffee</span>
+              <span className="text-[10px] font-bold uppercase">{chrome.i18n.getMessage('coffeeAction')}</span>
             </a>
           </div>
         </section>
@@ -188,7 +189,7 @@ export default function Popup() {
         <div className="flex flex-col items-center gap-3">
           <div className="flex items-center gap-4 text-[11px] font-medium text-slate-400">
             <a href="https://startover205.github.io/geminiDelete/privacy.html" target="_blank" rel="noreferrer" className="interactive-card hover:text-primary transition-colors rounded px-1 py-0.5">
-              Privacy Policy
+              {chrome.i18n.getMessage('privacyPolicy')}
             </a>
             <span className="text-slate-700">•</span>
             <a href="https://github.com/startover205/geminiDelete" target="_blank" rel="noreferrer" className="interactive-card flex items-center gap-1 hover:text-primary transition-colors rounded px-1 py-0.5">
@@ -196,7 +197,7 @@ export default function Popup() {
             </a>
           </div>
           <div className="text-[10px] text-slate-400 flex items-center gap-1">
-            Built to keep Gemini clutter-free
+            {chrome.i18n.getMessage('builtToKeep')}
           </div>
         </div>
       </footer>
