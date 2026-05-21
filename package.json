@@ -1,6 +1,6 @@
 {
   "name": "gemini-quick-delete",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Quickly delete Gemini conversations with a custom shortcut",
   "license": "MIT",
   "scripts": {
