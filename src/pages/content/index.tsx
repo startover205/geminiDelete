@@ -1,3 +1,6 @@
+import { AppLanguage, normalizeLanguage } from '../../utils/language';
+import { t } from '../../utils/translations';
+
 type ShortcutConfig = {
   key: string;
   ctrlKey: boolean;
@@ -28,6 +31,7 @@ const DEFAULT_CONFIG: AppConfig = {
 };
 
 let currentConfig: AppConfig = DEFAULT_CONFIG;
+let currentLanguage: AppLanguage = 'en';
 let activeDeletePopover: HTMLElement | null = null;
 let activeDeletePopoverCleanup: (() => void) | null = null;
 
@@ -132,7 +136,7 @@ function showDeletePopover(anchorEl: HTMLElement, menuBtn: HTMLElement) {
   const popover = document.createElement('button');
   popover.className = 'gqd-delete-popover';
   popover.type = 'button';
-  popover.textContent = chrome.i18n.getMessage('confirmDelete');
+  popover.textContent = t('confirmDelete', currentLanguage);
   popover.setAttribute('role', 'dialog');
   popover.setAttribute('aria-modal', 'false');
   popover.setAttribute('aria-label', 'Delete conversation confirmation');
@@ -333,9 +337,20 @@ chrome.storage.sync.get(['geminiQuickDeleteConfig', 'geminiQuickDeleteShortcut']
   initTrashIconsObserver();
 });
 
+chrome.storage.local.get(['preferredLanguage'], (result) => {
+  if (result.preferredLanguage) {
+    currentLanguage = result.preferredLanguage as AppLanguage;
+  } else {
+    currentLanguage = normalizeLanguage(chrome.i18n.getUILanguage());
+  }
+});
+
 chrome.storage.onChanged.addListener((changes, namespace) => {
   if (namespace === 'sync' && changes.geminiQuickDeleteConfig) {
     applyConfig(changes.geminiQuickDeleteConfig.newValue);
+  }
+  if (namespace === 'local' && changes.preferredLanguage) {
+    currentLanguage = changes.preferredLanguage.newValue;
   }
 });
 
