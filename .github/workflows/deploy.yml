@@ -1,0 +1,41 @@
+name: Deploy to Chrome Web Store
+
+on:
+  push:
+    tags:
+      - 'v*' # Triggers on pushes with tags like v1.0.0
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'yarn'
+
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Build extension
+        run: yarn build
+
+      - name: Zip extension
+        run: |
+          cd dist_chrome
+          zip -r ../extension.zip ./*
+          cd ..
+
+      - name: Upload to Chrome Web Store
+        uses: mnao305/chrome-extension-upload@v5.0.0
+        with:
+          file-path: extension.zip
+          extension-id: ${{ secrets.EXTENSION_ID }}
+          client-id: ${{ secrets.CHROME_CLIENT_ID }}
+          client-secret: ${{ secrets.CHROME_CLIENT_SECRET }}
+          refresh-token: ${{ secrets.CHROME_REFRESH_TOKEN }}
+          publish: false # Set to true if you want it to automatically publish to the public after review
