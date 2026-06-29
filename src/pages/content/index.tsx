@@ -378,9 +378,14 @@ function createTrashIcon(menuBtn: HTMLElement) {
   wrapper.style.color = '#8ab4f8';
   wrapper.style.cursor = 'pointer';
   wrapper.style.padding = '6px';
-  wrapper.style.margin = '0 4px 0 0'; // 4px margin to the right (between trash and 3-dots)
+  // Use negative margin so it takes 0 space in layout (prevents pushing the 3-dots button to the right)
+  wrapper.style.margin = '0 -32px 0 0'; 
   wrapper.style.boxSizing = 'border-box';
   wrapper.style.flexShrink = '0'; // Don't let flexbox crush it
+  
+  // Visually shift it to the left of the 3-dots button (32px width + 4px gap)
+  wrapper.style.transform = 'translateX(-36px)';
+  
   wrapper.style.transition = window.matchMedia('(prefers-reduced-motion: reduce)').matches
     ? 'none'
     : 'background-color 160ms ease, color 160ms ease, box-shadow 160ms ease';
@@ -469,12 +474,7 @@ function initTrashIconsObserver() {
         if (!container.querySelector('.gqd-trash-btn')) {
           const trashBtn = createTrashIcon(btn as HTMLElement);
           
-          // Ensure the container aligns children horizontally
-          container.style.display = 'flex';
-          container.style.flexDirection = 'row';
-          container.style.alignItems = 'center';
-          
-          // Insert BEFORE the 3-dots menu button, placing it cleanly in the flex row
+          // Insert BEFORE the 3-dots menu button
           container.insertBefore(trashBtn, btn);
           
           // Manage hover state via JS to absolutely avoid CSS layout side effects
