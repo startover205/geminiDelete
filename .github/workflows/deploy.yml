@@ -1,6 +1,7 @@
 name: Deploy to Chrome Web Store
 
 on:
+  workflow_dispatch:
   push:
     tags:
       - 'v*' # Triggers on pushes with tags like v1.0.0
@@ -30,12 +31,51 @@ jobs:
           zip -r ../extension.zip .
           cd ..
 
-      - name: Upload to Chrome Web Store
-        uses: mnao305/chrome-extension-upload@v5.0.0
-        with:
-          file-path: extension.zip
-          extension-id: ${{ secrets.EXTENSION_ID }}
-          client-id: ${{ secrets.CHROME_CLIENT_ID }}
-          client-secret: ${{ secrets.CHROME_CLIENT_SECRET }}
-          refresh-token: ${{ secrets.CHROME_REFRESH_TOKEN }}
-          publish: false # Set to true if you want it to automatically publish to the public after review
+      - name: Debug Google OAuth Token
+        run: |
+          echo "Testing Google OAuth Token exchange..."
+          HTTP_STATUS=$(curl -s -o token_response.json -w "%{http_code}" -X POST https://oauth2.googleapis.com/token \
+            -d client_id="${{ secrets.CHROME_CLIENT_ID }}" \
+            -d client_secret="${{ secrets.CHROME_CLIENT_SECRET }}" \
+            -d refresh_token="${{ secrets.CHROME_REFRESH_TOKEN }}" \
+            -d grant_type=refresh_token)
+          cat token_response.json
+          echo ""
+          if [ "$HTTP_STATUS" -ne 200 ]; then
+            echo "::error::OAuth Token exchange failed with status $HTTP_STATUS. See response above."
+            exit 1
+          fi
+
+      - name: Upload to Chrome Web Store (with exact error logging)
+        run: |
+          npm install chrome-webstore-upload
+          node -e "
+          const chromeWebstoreUpload = require('chrome-webstore-upload');
+          const fs = require('fs');
+          const webStore = chromeWebstoreUpload({
+            extensionId: process.env.EXTENSION_ID,
+            clientId: process.env.CLIENT_ID,
+            clientSecret: process.env.CLIENT_SECRET,
+            refreshToken: process.env.REFRESH_TOKEN
+          });
+          const myZipFile = fs.createReadStream('extension.zip');
+          webStore.uploadExisting(myZipFile).then(res => {
+            console.log('Upload Success:', res);
+          }).catch(e => {
+            console.error('Upload Error occurred:');
+            console.error(e.message);
+            if (e.response && e.response.body) {
+              console.error('Exact Google API Response:', e.response.body);
+            } else if (e.response && e.response.data) {
+              console.error('Exact Google API Response:', e.response.data);
+            } else {
+              console.error(e);
+            }
+            process.exit(1);
+          });
+          "
+        env:
+          EXTENSION_ID: ${{ secrets.EXTENSION_ID }}
+          CLIENT_ID: ${{ secrets.CHROME_CLIENT_ID }}
+          CLIENT_SECRET: ${{ secrets.CHROME_CLIENT_SECRET }}
+          REFRESH_TOKEN: ${{ secrets.CHROME_REFRESH_TOKEN }}
