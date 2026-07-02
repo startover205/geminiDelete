@@ -15,7 +15,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '22'
+          node-version-file: '.nvmrc'
           cache: 'yarn'
 
       - name: Install dependencies
@@ -27,7 +27,7 @@ jobs:
       - name: Zip extension
         run: |
           cd dist_chrome
-          zip -r ../extension.zip ./*
+          zip -r ../extension.zip .
           cd ..
 
       - name: Upload to Chrome Web Store
