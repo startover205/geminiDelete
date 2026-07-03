@@ -50,7 +50,7 @@ jobs:
         run: |
           npm install chrome-webstore-upload --legacy-peer-deps --no-save
           node -e "
-          const chromeWebstoreUpload = require('chrome-webstore-upload');
+          const chromeWebstoreUpload = require('chrome-webstore-upload').default;
           const fs = require('fs');
           const webStore = chromeWebstoreUpload({
             extensionId: process.env.EXTENSION_ID,
