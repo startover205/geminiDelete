@@ -56,7 +56,8 @@ jobs:
             extensionId: process.env.EXTENSION_ID,
             clientId: process.env.CLIENT_ID,
             clientSecret: process.env.CLIENT_SECRET,
-            refreshToken: process.env.REFRESH_TOKEN
+            refreshToken: process.env.REFRESH_TOKEN,
+            publisherId: process.env.PUBLISHER_ID
           });
           const myZipFile = fs.createReadStream('extension.zip');
           webStore.uploadExisting(myZipFile).then(res => {
@@ -79,3 +80,4 @@ jobs:
           CLIENT_ID: ${{ secrets.CHROME_CLIENT_ID }}
           CLIENT_SECRET: ${{ secrets.CHROME_CLIENT_SECRET }}
           REFRESH_TOKEN: ${{ secrets.CHROME_REFRESH_TOKEN }}
+          PUBLISHER_ID: ${{ secrets.CHROME_PUBLISHER_ID }}
