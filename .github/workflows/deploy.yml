@@ -48,7 +48,7 @@ jobs:
 
       - name: Upload to Chrome Web Store (with exact error logging)
         run: |
-          npm install chrome-webstore-upload
+          npm install chrome-webstore-upload --legacy-peer-deps --no-save
           node -e "
           const chromeWebstoreUpload = require('chrome-webstore-upload');
           const fs = require('fs');
